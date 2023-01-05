@@ -16,14 +16,23 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 
 
 登录/注册页面
-
-![登录/注册页面](https://foruda.gitee.com/images/1672927608603235204/73d9003f_11795877.png "19@FB]1D_K]_}Q7UUCCZ3N1.png")
+![输入图片说明](ima/19@FB%5D1D_K%5D_%7DQ7UUCCZ3N1.png)
 
 首页
-![输入图片说明](_3H$Q1_DJ%7DD91NBHHG@EZEA.png)
+![输入图片说明](ima/_3H$Q1_DJ%7DD91NBHHG@EZEA.png)
+
+文章详细
+![输入图片说明](ima/%25U5)2%7B~R7$9BR%60JCFXTK0%7B5.png)
+
+评论
+![输入图片说明](ima/EERF%7D%5B5DR%5B%25@XL)ID@IYHKM.png)
+
+用户
+![输入图片说明](ima/Z~T5%60C~A7%25Y$(%60LU@00~(%5BM.png)
 
 管理员页面 用户名admin 密码123456
-![输入图片说明](image.png)
+
+
 
 #### 使用说明
 
