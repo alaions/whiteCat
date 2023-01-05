@@ -28,7 +28,8 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 ![输入图片说明](%5D8QG$D3_O4Q%251$EHD%7DG~I35.png)
 2.  配置头像以及封面存放地址
 ![输入图片说明](15FU820NVR40MUALKHS4%25JM.png)
-3.  xxx
+3.  配置数据库
+![输入图片说明](image.png)
 
 #### 参与贡献
 
