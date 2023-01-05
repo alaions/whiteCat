@@ -22,6 +22,9 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 首页
 ![输入图片说明](_3H$Q1_DJ%7DD91NBHHG@EZEA.png)
 
+管理员页面 用户名admin 密码123456
+![输入图片说明](image.png)
+
 #### 使用说明
 
 1.  配置你的邮箱以及密码，如果你不需要邮箱发送验证码功能的话可忽略
