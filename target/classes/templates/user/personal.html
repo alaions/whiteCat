@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loginHtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; Charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>WhiteCat</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+    <link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/global.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/blog.css}" rel="stylesheet" />
+    <link th:href="@{/css/me.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div th:insert="~{commons/commons.html :: top}"></div>
+
+<div class="blog-user"></div>
+
+<div class="blog-body">
+    <div class="blog-container">
+        <div class="blog-main">
+            <div class="home-tips shadow">主页</div>
+
+            <div class="blog-main-left animated slideInLeft">
+
+                <div class="flow-default" id="parentArticleList">
+                    <!--帖子-->
+                    <div class="article shadow animated zoomIn" th:each="topic:${topicList}" th:if="${session.message} == 'topic'">
+                        <div class="article-left">
+                            <img th:src="@{/images/topicPicture/} + ${topic.topicPicture}" alt="${topic.title}">
+                        </div>
+                        <div class="article-right">
+                            <div class="article-title">
+                                <span class="article_is_top" th:if="${topic.topicType == 0}">原创</span>&nbsp;
+                                <span class="article_is_yc" th:if="${topic.topicType == 1}">搬运</span>&nbsp;
+                                <a th:href="@{/detail/} + ${topic.id}" th:text="${topic.title}"></a>
+                            </div>
+                            <div class="article-abstract">
+                                <a th:href="@{/detail/} + ${topic.id}" th:text="${topic.content.substring(0, 30)}"></a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="article-footer">
+                            <span><i class="fa fa-clock-o" th:text="${#dates.format(topic.topicTime, 'yy-MM-dd hh-mm')}"></i>&nbsp;&nbsp;</span>
+                            <span class="article-author" th:text="${topic.getUser().getUsername()}"><i class="fa fa-user"></i>&nbsp;&nbsp;</span>
+                            <button th:onclick="support([[${topic.id}]])" class="article-viewinfo" style="border-style:none; background-color: white" th:if="${appraiseTopicMap[topic.id] == 1}">
+                                <i class="fa fa-thumbs-o-up"  style="color: deeppink" th:text=" ${topic.getSupportCount()}"></i>&nbsp;&nbsp;
+                            </button>
+                            <button th:onclick="support([[${topic.id}]])" class="article-viewinfo" style="border-style:none; background-color: white" th:if="${appraiseTopicMap[topic.id] == null || appraiseTopicMap[topic.id] == 0}">
+                                <i class="fa fa-thumbs-o-up"   style="color: cornflowerblue" th:text=" ${topic.getSupportCount()}"></i>&nbsp;&nbsp;
+                            </button>
+                            <button th:onclick="deleteTopic([[${topic.id}]], [[${topicList.indexOf(topic)}]])" style="border-style:none; background-color: white; color: #1abc9c" th:href="@{/delectTopic/} + ${topic.id}">删除</button>&nbsp;&nbsp;&nbsp;
+                            <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a th:href="@{/category/} + ${topic.topicTagId}" th:text="${topic.tagName}"></a></span>
+                            <span class="article-viewinfo"><i class="fa fa-eye" th:text="${topic.getBrowseCount()}"></i>&nbsp;</span>
+                            <span class="article-viewinfo"><i class="fa fa-commenting" th:text="${topic.commentCount}"></i>&nbsp;</span>
+                            <!--再搞个点赞的-->
+                        </div>
+                    </div>
+                    <!--粉丝-->
+                    <div class="blog-module shadow animated fadeInRight fadeInUp" th:if="${session.message} == 'fans'">
+                        <div class="blog-module-title"><i class="layui-icon"></i>&nbsp;我的粉丝</div>
+                        <ul class="hotusers-list">
+                            <li class="hotusers-list-item" th:each="user:${fansList}">
+                                <div class="hotusers-avator">
+                                    <!--头像-->
+                                    <a th:href="@{/toOtherPersonal/} + ${user.id}"><img th:src="@{/images/avatar/} + ${user.avatar}" width="45" height="45"></a>
+                                </div>
+                                <div>
+                                    <a th:href="@{/toOtherPersonal/} + ${user.id}"><div class="hotusers-nick" th:text="${user.username}"></div></a>
+                                </div>
+                                <span class="hotusers-icons"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--关注-->
+                    <div class="blog-module shadow animated fadeInRight fadeInUp" th:if="${session.message} == 'follow'">
+                        <div class="blog-module-title"><i class="layui-icon"></i>&nbsp;我的关注</div>
+                        <ul class="hotusers-list">
+                            <li class="hotusers-list-item" th:each="user:${followList}">
+                                <div class="hotusers-avator">
+                                    <!--头像-->
+                                    <a th:href="@{/toOtherPersonal/} + ${user.id}"><img th:src="@{/images/avatar/} + ${user.avatar}" width="45" height="45"></a>
+                                </div>
+                                <div>
+                                    <a th:href="@{/toOtherPersonal/} + ${user.id}"><div class="hotusers-nick" th:text="${user.username}"></div></a>
+                                </div>
+                                <span class="hotusers-icons"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--消息面板-->
+                    <div class="blog-module shadow animated fadeInRight fadeInUp" th:if="${session.message} == 'support' or ${session.message} == 'chat'">
+                        <div class="blog-module shadow animated fadeInRight fadeInUp">
+                            <div class="blog-module-title"><i class="layui-icon"></i>&nbsp;消息列表</div>
+                            <button onclick="ban()" style="color: #0e8c8c; border-style:none; background-color: white;">系统通知</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onclick="ban()" style="color: #0e8c8c; border-style:none; background-color: white;">评论</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a th:href="@{/toPersonal/support}" style="color: #0e8c8c">赞</a><span style="color: red" th:text="${messageMap[supportUnread]}"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onclick="ban()" style="color: #0e8c8c; border-style:none; background-color: white;">新增粉丝</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a th:href="@{/toPersonal/chat}" style="color: #0e8c8c">私信</a><span style="color: red" th:text="${messageMap[chatUnread]}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a th:href="@{/toPersonal/contact}" style="color: #0e8c8c" th:if="${session.loginUser.id == 1}">直接联系我的</a><span style="color: red" ></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </div>
+                    <!--点赞-->
+                    <div class="blog-module shadow animated fadeInRight fadeInUp" th:if="${session.message} == 'support'">
+                        <a th:href="@{/readAllSupport}" style="color: #0e8c8c">全部已读</a>
+                        <ul class="message-list" id="message-list" th:each="support:${supportList}">
+                            <a class="comment-parent" th:href="@{/toOtherPersonal/} + ${support.fromUser.id}">
+                                <img th:src="@{/images/avatar/} + ${support.fromUser.avatar}"/>
+                            </a>
+                            <li class="zoomIn article" >
+                                <div class="comment-parent">
+                                    <a name="remark-1"></a>
+                                    <a th:href="@{/detail/} + ${support.topicId}" class="comment-content" th:utext=" ${'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+support.content}"  style="margin-top: 10px"></a>
+                                    <a th:href="@{/read/} + ${support.id} + '/support'" th:if="${support.status == 0}" style="color: dodgerblue">未读</a>
+                                    <span th:if="${support.status == 1}" style="color: grey">已读</span>
+                                </div>
+                                <hr/>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--私信-->
+                    <div class="blog-module shadow animated fadeInRight fadeInUp" th:if="${session.message} == 'chat'">
+                        <a th:href="@{/readAllChat}" style="color: #0e8c8c">全部已读</a>
+                        <ul class="message-list" th:each="chat:${chatList}">
+                            <a class="comment-parent" th:href="@{/toOtherPersonal/} + ${chat.id}">
+                                <img th:src="@{/images/avatar/} + ${chat.avatar}"/>
+                            </a>
+                            <li class="zoomIn article" >
+                                <div class="comment-parent">
+                                    <a name="remark-1"></a>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span style="color: red" th:text="${userChatMap[chat.id] + '条信息'}" th:if="${userChatMap[chat.id]!=0}"></span>
+                                    <a th:href="@{/detailChat/} + ${chat.id}" class="comment-content" th:utext=" ${chat.username + '给你发来私信'}"  style="margin-top: 10px"></a>
+                                </div>
+                                <hr/>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--分页-->
+                    <div class="layui-flow-more " style="background: white">
+                        <div class="page">
+                            <div>
+                                <a class="prev" th:href="@{/personal/lastPage}">上一页</a>
+                                <a class="num" th:href="@{/personal/toWhichPage/} + ${cutPage.lastPage}" th:text="${cutPage.lastPage}" th:if="${cutPage.lastPage!=0}"></a>
+                                <span class="current" style="color: mediumseagreen" th:text="${cutPage.nowPage}"></span>
+                                <a class="num" th:href="@{/personal/toWhichPage/} + ${cutPage.nextPage}" th:text="${cutPage.nextPage}" th:if="${cutPage.nowPage != cutPage.getPageCount()}"></a>
+                                <a class="next" th:href="@{/personal/nextPage}">下一页</a>
+                                <a class="num" href="" th:text="共 + ${cutPage.pageCount} + 页"></a>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input type="text" id="pageCount" onkeyup="value=value.replace(/[^\d]/g,'')" onblur="value=value.replace(/[^\d]/g,'')" placeholder="页数" autocomplete="off" class="layui-input" style="width: 50px">
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <button class="layui-btn" onclick="toWhichPage()"><i class="layui-icon">&#xe615;</i></button>
+                                </div>
+                                <a class="num" th:text="共 + ${cutPage.totalCount} + 条"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-main-right">
+                <!--主头像 不放在主页，放在空间里-->
+                <div class="blogerinfo shadow animated fadeInRight">
+                    <div class="blogerinfo-figure">
+                        <img th:src="@{/images/avatar/} + ${session.loginUser.avatar}" alt="头像">
+                    </div>
+                    <p class="blogerinfo-nickname" th:text="${session.loginUser.username}"></p>
+                    <div class="blogerinfo-introduce" th:utext="文章数 + ':' + ${session.loginUser.topicCount} + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 获赞数 + ':' + ${session.loginUser.supportCount} + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 浏览量 + ':' + ${session.loginUser.browseCount}"> </div>
+                    <div class="blogerinfo-location">
+                        <a th:href="@{toPersonal/topic}"><i class="fa fa-location-arrow"></i>&nbsp;<span>我的文章</span></a>
+                        <a th:href="@{toPersonal/follow}"><i class="fa fa-location-arrow"></i>&nbsp;<span>我的关注</span></a>
+                        <a th:href="@{toPersonal/fans}"><i class="fa fa-location-arrow"></i>&nbsp;<span>我的粉丝</span></a>
+                    </div>
+                    <hr>
+                    <div class="blogerinfo-contact">
+                        <!--<a target="_blank" id="QQjl" title="QQ交流" href="http://shang.qq.com/email/stop/email_stop.html?qq=2896543728"><i class="fa fa-qq fa-2x"></i></a>-->
+                        <span style="color: #0e8c8c;  font-size:16px" th:text="'未读' + ${totalMessage}"></span>
+                        <a target="_blank" id="gwxx" title="消息" th:href="@{/toPersonal/support}"><i class="fa fa-envelope fa-2x"></i></a>
+                        <!--<a target="_blank" id="xlwb" title="新浪微博" href="https://weibo.com/p/1005055534423586"><i class="fa fa-weibo fa-2x"></i></a>-->
+                        <a target="_blank" id="htgl" title="设置" th:href="@{/setUp}"><i class="fa fa-database fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--页脚-->
+<div th:insert="~{commons/commons.html :: down}"></div>
+
+<div class="blog-mask animated layui-hide"></div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/global.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<script th:inline="javascript">
+    function deleteTopic(topicId, index){
+        $.get({
+            url: "/chen/deleteTopic/" + topicId + "/" + index,
+            success: function (data){
+                if (data === "error"){
+                    layer.msg("请先登录！")
+                } else {
+                    location.href = "/chen/personal/toWhichPage/" + [[${cutPage.nowPage}]];
+                }
+            },
+            error: function (){
+                alert("失败")
+            }
+        })
+    }
+
+    function support(topicId){
+        $.get({
+            url: "/chen/topic/supportOrCriticism/" + topicId,
+            success: function (data){
+                if (data === "error"){
+                    layer.msg("请先登录！")
+                } else {
+                    location.href = "/chen/personal/toWhichPage/" + [[${cutPage.nowPage}]];
+                }
+            },
+            error: function (){
+                alert("失败")
+            }
+        })
+    }
+
+    function toWhichPage() {
+        let pageCount = $("#pageCount").val();
+        if (pageCount === ""){
+            layer.msg("不能为空!")
+        }else if(pageCount > [[${cutPage.pageCount}]] || pageCount <= 0){
+            layer.msg("无此页！")
+        }
+        else {
+            window.location.href="/chen/personal/toWhichPage/" + $("#pageCount").val()
+        }
+    }
+</script>
+</body>
+
+</html>

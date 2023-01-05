@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--导航栏-->
+<nav id="h" class="blog-nav layui-header" style="background-color: #3F3F3F" th:fragment="top">
+    <div class="blog-container">
+
+        <!--<a th:href="@{/login}" class="blog-user">
+            <i class="fa fa-qq"></i>
+        </a>-->
+
+        <a class="blog-logo" style="transform:translate(-120px)" th:href="@{/userIndex.html}">WhiteCat</a>
+
+        <ul class="layui-nav" lay-filter="nav">
+            <li class="layui-nav-item">
+                <a th:href="@{/toUserIndex}"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a th:href="@{/toArticle}"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
+            </li>
+            <li class="layui-nav-item">
+                <a th:href="@{/toUserPage}"><i class="fa fa-paper-plane-o fa-fw"></i>&nbsp;用户专栏</a>
+            </li>
+            <li class="layui-nav-item">
+                <button onclick="ban()" style="border-style:none; background-color: #3F3F3F; color: darkgrey"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;源码地址</button>
+            </li>
+            <li class="layui-nav-item">
+                <a th:href="@{/contactMe}"><i class="fa fa-info fa-fw"></i>&nbsp;联系我</a>
+            </li>
+            <!--<span class="layui-nav-bar"></span></ul>-->
+            <li class="layui-nav-item">
+                <form method="get" th:action="@{/article/selectSubmit}">
+                    <div class="layui-inline layui-show-xs-block">
+                        <input th:value="${session.selectMessage}" required="required" type="text" name="selectMessage"  placeholder="请输入搜索关键词" autocomplete="off" class="layui-input">
+                    </div>
+                    <button type="submit" class="layui-btn" style="background-color: #3F3F3F"><i class="layui-icon">&#xe615;</i></button>
+                </form>
+            </li>
+            <li class="layui-nav-item" style="transform:translate(150px)">
+                <a th:href="@{/write.html}"><i class="fa fa-info fa-fw" ></i>&nbsp;发布</a>
+            </li>
+            <li class="layui-nav-item" style="transform:translate(150px)">
+            <div>
+                <a th:href="@{/login.html}" th:if="${session.loginUser == null}" style="position:relative; left:-20px;">
+                    登录
+                </a>
+            </div>
+            </li>
+            <li class="layui-nav-item" style="transform:translate(700px) translateY(-65px)">
+                <div class="hotusers-avator">
+                    <!--头像-->
+                    <!--<a th:href="@{/login.html}" th:if="${session.loginUser == null}" style="position:relative; left:-20px;">
+                        登录
+                    </a>-->
+                    <a th:href="@{/toPersonal/topic}" th:if="${session.loginUser != null}">
+                        <img th:src="@{/images/avatar/} + ${session.loginUser.avatar}" width="45" height="45">
+                    </a>
+                </div>
+            </li>
+            <li class="layui-nav-item" style="transform:translate(680px) translateY(-65px)">
+                <a th:href="@{/loginOut}" th:if="${session.loginUser != null}"><i class="fa fa-paper-plane-o fa-fw"></i>&nbsp;登出</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!--页脚-->
+<footer id="f" class="blog-footer" th:fragment="down">
+    <p><span>Copyright</span><span>©</span><span>2022</span>
+        <a href="">WhiteCat博客论坛</a><span>Design By WhileCat</span></p>
+    <p>
+        <a href="" target="_blank">备号</a>
+    </p>
+</footer>
+
+
+
+</body>
+</html>

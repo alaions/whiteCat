@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loginHtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; Charset=utf-8" />
+		<meta http-equiv="Content-Language" content="zh-CN" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<title>WhiteCat</title>
+		<link rel="shortcut icon" th:href="@{images/logo.png}" type="image/x-icon" />
+		<link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+		<link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+		<link th:href="@{/css/global.css}" rel="stylesheet" />
+		<link th:href="@{/css/animate.min.css}" rel="stylesheet" />
+		<link th:href="@{/css/index.css}" rel="stylesheet" />
+		<link th:href="@{/css/blog.css}" rel="stylesheet" />
+		<link th:href="@{/css/me.css}" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div th:insert="~{commons/commons.html :: top}"></div>
+
+		<div class="blog-user"></div>
+
+		<div class="blog-body">
+			<!--轮播-->
+			<div class="layui-carousel blog-bg" id="carousel" lay-anim="default" lay-indicator="inside" lay-arrow="always" style="width: 1170px; height: 360px;">
+				<div carousel-item="">
+					<div class="layui-this">
+						<a href="" target="_blank" title="bilibili">
+							<img th:src="@{/images/topicPicture/1.jpg}">
+						</a>
+					</div>
+					<div class="">
+						<a href="" target="_blank" title="bilibili">
+							<img th:src="@{/images/topicPicture/2.jpg}">
+						</a>
+					</div>
+					<div class="">
+						<a href="" target="_blank" title="bilibili">
+							<img th:src="@{/images/topicPicture/3.jpg}">
+						</a>
+					</div>
+					<div class="">
+						<a href="" target="_blank" title="bilibili">
+							<img th:src="@{/images/topicPicture/4.jpg}">
+						</a>
+					</div>
+
+				</div>
+			</div>
+			<div class="blog-container">
+				<div class="blog-main">
+					<!--公告-->
+					<div class="home-tips shadow">
+						<i style="float:left;line-height:17px;" class="fa fa-volume-up"></i>
+						<div class="home-tips-container">
+							<span style="color: rgb(0, 150, 136); cursor: pointer; display: none;"><p><span>如果出现404或500的bug可以点击导航栏上的“联系我”发送相关消息哦~</span></p></span>
+							<span style="color: rgb(0, 150, 136); cursor: pointer; display: block;"><p><span>源码会在将来上传到github</span></p></span>
+						</div>
+					</div>
+
+					<div class="blog-main-left animated slideInLeft">
+						<!--帖子-->
+						<div class="flow-default" id="parentArticleList">
+							<div class="article shadow animated zoomIn" th:each="topic:${topicList}">
+								<div class="article-left">
+									<img th:src="@{/images/topicPicture/} + ${topic.topicPicture}" th:alt="${topic.title}">
+								</div>
+								<div class="article-right">
+									<div class="article-title">
+										<span class="article_is_top" th:if="${topic.topicType == 0}">原创</span>&nbsp;
+										<span class="article_is_yc" th:if="${topic.topicType == 1}">搬运</span>&nbsp;
+										<a th:href="@{/detail/} + ${topic.id}" th:text="${topic.title}"></a>
+									</div>
+									<div class="article-abstract">
+										<a th:href="@{/detail/} + ${topic.id}" th:text="${topic.content.substring(0, 30)}"></a>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="article-footer">
+									<span><i class="fa fa-clock-o" th:text="${#dates.format(topic.topicTime, 'yy-MM-dd hh-mm')}"></i>&nbsp;&nbsp;</span>
+									<a th:href="@{/toOtherPersonal/} + ${topic.user.id}" class="article-author" th:text="${topic.getUser().getUsername()}"><i class="fa fa-user"></i>&nbsp;&nbsp;</a>
+									<button th:onclick="support([[${topic.id}]])" class="article-viewinfo" style="border-style:none; background-color: white" th:if="${appraiseTopicMap[topic.id] == 1}">
+										<i class="fa fa-thumbs-o-up"  style="color: deeppink" th:text=" ${topic.getSupportCount()}"></i>&nbsp;&nbsp;
+									</button>
+									<button th:onclick="support([[${topic.id}]])" class="article-viewinfo" style="border-style:none; background-color: white" th:if="${appraiseTopicMap[topic.id] == null || appraiseTopicMap[topic.id] == 0}">
+										<i class="fa fa-thumbs-o-up"   style="color: cornflowerblue" th:text=" ${topic.getSupportCount()}"></i>&nbsp;&nbsp;
+									</button>
+									<span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a th:href="@{/category/} + ${topic.topicTagId}" th:text="${topic.tagName}"></a></span>
+									<span class="article-viewinfo"><i class="fa fa-eye" th:text="${topic.getBrowseCount()}"></i>&nbsp;</span>
+									<span class="article-viewinfo"><i class="fa fa-commenting" th:text="${topic.commentCount}"></i>&nbsp;</span>
+								</div>
+							</div>
+							<!--分页-->
+							<div class="layui-flow-more " style="background: white">
+								<div class="page">
+									<div>
+										<a class="prev" th:href="@{/index/lastPage}">上一页</a>
+										<a class="num" th:href="@{/index/toWhichPage/} + ${cutPage.lastPage}" th:text="${cutPage.lastPage}" th:if="${cutPage.lastPage!=0}"></a>
+										<span class="current" style="color: mediumseagreen" th:text="${cutPage.nowPage}"></span>
+										<a class="num" th:href="@{/index/toWhichPage/} + ${cutPage.nextPage}" th:text="${cutPage.nextPage}" th:if="${cutPage.nowPage != cutPage.getPageCount()}"></a>
+										<a class="next" th:href="@{/index/nextPage}">下一页</a>
+										<a class="num" href="" th:text="共 + ${cutPage.pageCount} + 页"></a>
+										<div class="layui-inline layui-show-xs-block">
+											<input type="text" id="pageCount" onkeyup="value=value.replace(/[^\d]/g,'')" onblur="value=value.replace(/[^\d]/g,'')" placeholder="页数" autocomplete="off" class="layui-input" style="width: 50px">
+										</div>
+										<div class="layui-inline layui-show-xs-block">
+											<button class="layui-btn" onclick="toWhichPage()"><i class="layui-icon">&#xe615;</i></button>
+										</div>
+										<a class="num" th:text="共 + ${cutPage.totalCount} + 条"></a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="blog-main-right">
+						<div class="layui-tab layui-tab-brief shadow animated fadeInRight" lay-filter="docDemoTabBrief">
+							<ul class="layui-tab-title">
+								<li class="layui-this">点击排行</li>
+								<li>最新发布</li>
+							</ul>
+							<div class="layui-tab-content">
+								<div class="layui-tab-item layui-show">
+									<ul class="blog-module-ul"  th:each="topic:${topTopicList}">
+										<li>
+											<span>
+												<i class="layui-badge-rim layui-bg-red" th:text="${topTopicList.indexOf(topic)+1}" th:if="${topTopicList.indexOf(topic)== 0}"></i>
+												<i class="layui-badge-rim layui-bg-orange" th:text="${topTopicList.indexOf(topic)+1}" th:if="${topTopicList.indexOf(topic)== 1}"></i>
+												<i class="layui-badge-rim layui-bg-green" th:text="${topTopicList.indexOf(topic)+1}" th:if="${topTopicList.indexOf(topic)== 2}"></i>
+												<i class="layui-badge-rim " th:text="${topTopicList.indexOf(topic)+1}" th:if="${topTopicList.indexOf(topic) != 0 && topTopicList.indexOf(topic) != 1 && topTopicList.indexOf(topic) != 2}"></i>
+											</span> &nbsp;&nbsp;
+											<a th:href="@{/detail/} + ${topic.id}" th:text="${topic.title}"></a>
+										</li>
+									</ul>
+								</div>
+								<div class="layui-tab-item">
+									<ul class="blog-module-ul" th:each="topic:${NearTimeTopic}">
+										<li>
+											&nbsp;
+											<span class="article_is_yc" th:if="${topic.topicType == 0}">原创</span>
+											<span class="article_is_yc" th:if="${topic.topicType == 1}">搬运</span>
+											<a th:href="@{/detail/} + ${topic.id}" th:text="${topic.title}"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="blog-module shadow animated fadeInRight fadeInUp">
+							<div class="blog-module-title"><i class="layui-icon"></i>&nbsp;热评用户</div>
+							<ul class="hotusers-list">
+								<li class="hotusers-list-item" th:each="user:${hotComment}">
+									<div class="hotusers-top hotusers-num" th:text="${hotComment.indexOf(user) + 1}"></div>
+									<div class="hotusers-avator">
+										<!--头像-->
+										<a th:href="@{/toOtherPersonal/} + ${user.id}"><img th:src="@{/images/avatar/} + ${user.avatar}" width="45" height="45"></a>
+									</div>
+									<div>
+										<a th:href="@{/toOtherPersonal/} + ${user.id}"><div class="hotusers-nick" th:text="${user.username}"></div></a>
+										<span class="hotusers-totalcmt" th:text="本站评论数 + ':' + ${user.commentCount}"></span>
+									</div>
+									<span class="hotusers-icons"></span>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!--页脚-->
+		<div th:insert="~{commons/commons.html :: down}"></div>
+
+		<div class="blog-mask animated layui-hide"></div>
+
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/layui/layui.js}"></script>
+		<script th:src="@{/js/global.js}"></script>
+		<script th:src="@{/js/index.js}"></script>
+		<script th:inline="javascript">
+			function support(topicId){
+				$.get({
+					url: "/chen/topic/supportOrCriticism/" + topicId,
+					success: function (data){
+						if (data === "error"){
+							layer.msg("请先登录！")
+						} else {
+							location.href = "/chen/index/toWhichPage/" + [[${cutPage.nowPage}]];
+						}
+					},
+					error: function (){
+						alert("失败")
+					}
+				})
+			}
+
+			function toWhichPage() {
+				let pageCount = $("#pageCount").val();
+				if (pageCount === ""){
+					layer.msg("不能为空!")
+				}else if(pageCount > [[${cutPage.pageCount}]] || pageCount <= 0){
+					layer.msg("无此页！")
+				}
+				else {
+					window.location.href="/chen/index/toWhichPage/" + $("#pageCount").val()
+				}
+			}
+
+			window.onbeforeunload = function () {
+				var scrollPos;
+				if (typeof window.pageYOffset != 'undefined') {
+					scrollPos = window.pageYOffset;
+				}
+				else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+					scrollPos = document.documentElement.scrollTop;
+				}
+				else if (typeof document.body != 'undefined') {
+					scrollPos = document.body.scrollTop;
+				}
+				document.cookie = "scrollTop=" + scrollPos; //存储滚动条位置到cookies中
+			}
+
+			window.onload = function () {
+				if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+					var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/); //cookies中不为空，则读取滚动条位置
+					document.documentElement.scrollTop = parseInt(arr[1]);
+					document.body.scrollTop = parseInt(arr[1]);
+				}
+			}
+		</script>
+	</body>
+
+</html>

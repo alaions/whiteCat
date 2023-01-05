@@ -1,0 +1,8 @@
+body{
+    background-image: url("../images/404.gif");
+    background-attachment:fixed;
+    background-size: 100%;
+    no-repeat: center top;
+    height: 100%;
+    width: 100%;
+}

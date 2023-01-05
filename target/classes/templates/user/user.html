@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loginHtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; Charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>WhiteCat</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+    <link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/global.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/blog.css}" rel="stylesheet" />
+    <link th:href="@{/css/me.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div th:insert="~{commons/commons.html :: top}"></div>
+
+<div class="blog-user"></div>
+
+<div class="blog-body">
+    <div class="blog-container">
+        <div class="blog-main">
+            <div class="home-tips shadow">主页</div>
+
+            <div class="layui-form-item">
+                <div class="search-keywords  shadow">
+                    <input type="text" id="nameMessage" name="keywords" lay-verify="required" placeholder="输入关键词搜索" autocomplete="off" class="layui-input">
+                    <button class="layui-btn" onclick="selectName()"><i class="fa fa-search"></i></button>
+                </div>
+
+            </div>
+            <div class="blog-main-left animated slideInLeft" style="width: 1170px">
+
+                <div class="flow-default" id="parentArticleList">
+                    <div class="blog-module shadow animated fadeInRight fadeInUp">
+                        <div class="blog-module-title"><i class="layui-icon"></i>&nbsp;用户列表</div>
+                        <ul class="hotusers-list">
+                            <li class="hotusers-list-item" th:each="user:${userList}">
+                                <div class="hotusers-avator">
+                                    <!--头像-->
+                                    <a th:href="@{/toOtherPersonal/} + ${user.id}"><img th:src="@{/images/avatar/} + ${user.avatar}" width="45" height="45"></a>
+                                </div>
+                                <div>
+                                    <a th:href="@{/toOtherPersonal/} + ${user.id}"><div class="hotusers-nick" th:text="${user.username}"></div></a>
+                                </div>
+                                <span class="hotusers-icons"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--页脚-->
+<div th:insert="~{commons/commons.html :: down}"></div>
+
+<div class="blog-mask animated layui-hide"></div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/global.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<script th:inline="javascript">
+    function selectName(){
+        $.get({
+            url: "/chen/searchName",
+            data:{
+                "nameMessage":$("#nameMessage").val()
+            },
+            success: function (data){
+                if (data === 'none'){
+                    layer.msg("没有相关用户哦！");
+                }
+                if (data === 'success'){
+                    location.href="user.html";
+                }
+            },
+            error: function (){
+                layer.msg("失败")
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

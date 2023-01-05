@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chen.mapper.FansMapper">
+
+    <select id="getFansByIdolId" parameterType="int" resultType="User">
+        select user.* from user, fans where fans.user_id = #{idolId} and fans.fans_id = user.id;
+    </select>
+
+    <select id="getFansByIdolIdCount" parameterType="int" resultType="int">
+        select count(*) from user, fans where fans.user_id = #{idolId} and fans.fans_id = user.id;
+    </select>
+
+    <select id="ifIAmFans" resultType="Fans" parameterType="int">
+        select * from fans where user_id = #{hisId} and fans_id = #{myId} and status = 1;
+    </select>
+
+    <select id="ifEverFans" resultType="Fans" parameterType="Fans">
+        select * from fans where user_id = #{userId} and fans_id = #{fansId} and status = 0;
+    </select>
+
+    <insert id="firstBeFans" parameterType="Fans">
+        insert into fans (user_id, fans_id, status, creat_time, update_time) values (#{userId}, #{fansId}, 1, #{creatTime}, #{updateTime});
+    </insert>
+
+    <update id="againBeFans" parameterType="Fans">
+        update fans set status = 1, update_time = #{updateTime} where user_id = #{userId} and fans_id = #{fansId};
+    </update>
+
+    <update id="everBeFans" parameterType="Fans">
+        update fans set status = 0, update_time = #{updateTime} where user_id = #{userId} and fans_id = #{fansId};
+    </update>
+
+    <select id="getIdolByFansId" parameterType="int" resultType="User">
+        select user.* from fans, user where fans.fans_id = #{id} and fans.user_id = user.id;
+    </select>
+
+    <select id="getIdolByFansIdCount" parameterType="int" resultType="int">
+        select count(*) from fans, user where fans.fans_id = #{id} and fans.user_id = user.id;
+    </select>
+</mapper>

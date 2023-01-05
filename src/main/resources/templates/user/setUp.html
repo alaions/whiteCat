@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loginHtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; Charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>WhiteCat</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+    <link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/global.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link th:href="@{/css/blog.css}" rel="stylesheet" />
+    <link th:href="@{/css/me.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div th:insert="~{commons/commons.html :: top}"></div>
+
+<div class="blog-user"></div>
+
+<div class="blog-body">
+    <div class="blog-container">
+        <div class="blog-main">
+
+            <div class="home-tips shadow">设置</div>
+            <!--设置主页面-->
+            <div class="blog-main-left animated slideInLeft" style="background: white; width: 1170px" th:if="${message == 'all'}">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    基本信息
+                </fieldset>
+                <div class="hotusers-avator">
+                    <img th:src="@{/images/avatar/} + ${session.loginUser.avatar}" width="45" height="45">
+                    <button type="button" class="layui-btn layui-btn-danger" id="test7"><i class="layui-icon"></i>更换头像</button>
+                </div>
+                <form class="layui-form" method="get" th:action="@{/submitSetUp}" lay-filter="example">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input th:value="${session.loginUser.username}" onblur="usernameCheck()" type="text" name="username" id="L_username" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input" style="width: 180px">
+                            <span id="usernameInfo"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input th:value="@{*******}" type="text" name="password" readonly=“readonly” class="layui-input" style="width: 180px">
+                            <a th:href="@{/updatePassword}" style="color: #1abc9c">修改密码</a>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            <input th:value="${session.loginUser.email}" readonly=“readonly” type="text" name="email" class="layui-input" style="width: 180px"></input>
+                                <a th:href="@{/checkEmail}" style="color: #1abc9c">修改邮箱</a>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" th:if="${session.loginUser.secret == 1}">
+                        <label class="layui-form-label">隐私保护</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="secret" value="1" lay-skin="switch" lay-text="ON|OFF" checked="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" th:if="${session.loginUser.secret == 0}">
+                        <label class="layui-form-label">隐私保护</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="secret" value="0" lay-skin="switch" lay-text="ON|OFF">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" th:if="${session.loginUser.sex == 1}">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="1" title="男" checked="">
+                            <input type="radio" name="sex" value="0" title="女">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" th:if="${session.loginUser.sex == 0}">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="1" title="男">
+                            <input type="radio" name="sex" value="0" title="女" checked="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">个性签名</label>
+                        <div class="layui-input-block" style="width: 400px">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="introduction" th:text="${session.loginUser.introduction}"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="submit" class="layui-btn">立即提交</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <!--修改密码页面-->
+            <div class="blog-main-left animated slideInLeft" style="background: white; width: 1170px" th:if="${message == 'password'}">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+
+                </fieldset>
+                <div class="hotusers-avator">
+                    <img th:src="@{/images/avatar/} + ${session.loginUser.avatar}" width="45" height="45">
+                </div>
+                <div class="layui-form" method="get" lay-filter="example">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            <input th:value="${session.loginUser.email}" readonly="readonly" type="text" name="email" class="layui-input" style="width: 180px">
+                            <button class="layui-btn layui-btn-sm" onclick="sendCode()">发送验证码</button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" onblur="passwordCheck()" onKeyUp="value=value.replace(/[\W]/g,'')" name="password" id="L_pass" placeholder="只能输入数字和字母" class="layui-input" style="width: 180px">
+                            <span id="passwordInfo"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" onblur="rePasswordCheck()" onKeyUp="value=value.replace(/[\W]/g,'')" name="againPassword" id="L_repass" placeholder="再次输入新密码" class="layui-input" style="width: 180px">
+                            <span id="rePasswordInfo"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="code" id="code" class="layui-input" style="width: 180px">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" onclick="submitPasswordUpdate()">立刻修改</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!--验证旧邮箱页面-->
+            <div class="blog-main-left animated slideInLeft" style="background: white; width: 1170px" th:if="${message == 'checkEmail'}">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+
+                </fieldset>
+                <div class="hotusers-avator">
+                    <img th:src="@{/images/avatar/} + ${session.loginUser.avatar}" width="45" height="45">
+                </div>
+                <div class="layui-form" method="get" lay-filter="example">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            <input th:value="${session.loginUser.email}" readonly="readonly" type="text" name="email" class="layui-input" style="width: 180px">
+                            <button class="layui-btn layui-btn-sm" onclick="sendCode()">发送验证码</button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="code" id="checkEmailCode" class="layui-input" style="width: 180px">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" onclick="checkEmailCode()">提交</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--绑定新邮箱页面-->
+            <div class="blog-main-left animated slideInLeft" style="background: white; width: 1170px" th:if="${message == 'updateEmail'}">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+
+                </fieldset>
+                <div class="hotusers-avator">
+                    <img th:src="@{/images/avatar/} + ${session.loginUser.avatar}" width="45" height="45">
+                </div>
+                <div class="layui-form" method="get" lay-filter="example">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">新邮箱</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="email" id="L_email" onblur="emailCheck()" class="layui-input" style="width: 180px">
+                            <button class="layui-btn layui-btn-sm" onclick="sendCodeAndCarryNewEmail()">发送验证码</button>
+                            <span id="emailInfo"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证码</label>
+                        <div class="layui-input-block">
+                            <input type="text" required="required" name="code" id="updateEmailCode" class="layui-input" style="width: 180px">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" onclick="submitUpdateEmail()">提交更改</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--页脚-->
+<div th:insert="~{commons/commons.html :: down}"></div>
+
+<div class="blog-mask animated layui-hide"></div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/global.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<!--格式提示js-->
+<script th:src="@{/js/check.js}"></script>
+<script th:inline="javascript">
+    layui.use(['upload', 'element', 'layer'], function(){
+        var $ = layui.jquery
+            ,upload = layui.upload
+            ,element = layui.element
+            ,layer = layui.layer;
+
+        //设定文件大小限制
+        upload.render({
+            elem: '#test7'
+            ,url: '/chen/uploadAvatar' //此处配置你自己的上传接口即可
+            ,size: 6000 //限制文件大小，单位 KB
+            ,done: function(res){
+                layer.msg('上传成功');
+            }
+        });
+    });
+</script>
+<script>
+    function sendCode(){
+        $.get({
+            url:"/chen/updateSendCode",
+            dataType:"text",
+            success:function (data){
+                layer.msg(data)
+            },
+            error:function (){
+                layer.msg("发送失败")
+            }
+        })
+        return false;	//禁止提交表单
+    }
+
+    function submitPasswordUpdate(){
+        $.get({
+            url:"/chen/submitPasswordUpdate",
+            data: {
+                "password":$("#L_pass").val(),
+                "againPassword":$("#L_repass").val(),
+                "code":$("#code").val(),
+            },
+            dataType:"text",
+            success:function (data){
+                layer.msg(data)
+            },
+            error:function (){
+                layer.msg("失败")
+            }
+        })
+        return false;	//禁止提交表单
+    }
+
+    function checkEmailCode(){
+        $.get({
+            url:"/chen/checkOldEmail",
+            data: {
+                "code":$("#checkEmailCode").val(),
+            },
+            dataType:"text",
+            success:function (data){
+                if (data === "success"){
+                    alert(data)
+                    location.href="updateEmail"
+                } else {
+                    layer.msg(data)
+                }
+            },
+            error:function (){
+                layer.msg("提交失败")
+            }
+        })
+    }
+
+    function sendCodeAndCarryNewEmail(){
+        $.get({
+            url:"/chen/updateSendCode",
+            data:{
+                "newEmail":$("#L_email").val(),
+            },
+            dataType:"text",
+            success:function (data){
+                layer.msg(data)
+            },
+            error:function (){
+                layer.msg("发送失败")
+            }
+        })
+    }
+
+    function submitUpdateEmail(){
+        $.get({
+            url:"/chen/submitUpdateEmail",
+            data:{
+                "newEmail":$("#L_email").val(),
+                "code":$("#updateEmailCode").val(),
+            },
+            dataType:"text",
+            success:function (data){
+                layer.msg(data)
+            },
+            error:function (){
+                layer.msg("更改失败！")
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

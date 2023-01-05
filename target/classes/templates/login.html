@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loginHtml">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!--<link rel="icon" href="/resources/favicon.ico">-->
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/public.css}" media="all">
+
+</head>
+<body class="loginBody">
+<form class="layui-form" method="get" th:action="@{/login}">
+    <div class="login_face">
+        <img src="/images/login.jpg" height="60px" class="userAvatar">
+    </div>
+    <div>
+        <div class="loginbox-title">登录</div>
+        <div class="loginbox-social">
+            <div class="social-title">系统</div>
+        </div>
+        <div class="layui-form-item input-item">
+            <label>用户名</label>
+            <input type="text" placeholder="请输入用户名" autocomplete="off" name="username" class="layui-input" lay-verify="required">
+        </div>
+        <div class="layui-form-item input-item">
+            <label>密码</label>
+            <input type="password" placeholder="请输入密码" autocomplete="off" name="password" class="layui-input" lay-verify="required">
+        </div>
+        <p th:text="${msg}" style="color: crimson"></p>
+        <!--<div class="layui-form-item input-item" id="imgCode">
+            <input type="text" placeholder="请输入验证码" name="code" autocomplete="off" id="code" class="layui-input">
+            <img style="margin-right: 20px" width="100px" id="verify_code_img" height="32"
+                 src="/verifyCode/getImg" onclick="javascript:changeImg()"><br>
+        </div>-->
+        <div class="layui-form-item">
+            <button class="layui-btn layui-block">登录</button>
+        </div>
+        <div class="layui-form-item">
+            <a class="layui-btn layui-block" th:href="@{/index.html}">游客访问</a>
+        </div>
+        <div class="layui-form-item">
+            <a th:href="@{/register}">还没账户？点击注册</a>
+            <!--<a style="text-decoration:underline	;padding-left: 10px;color: #2badce" th:href="@{/}">回首页</a>-->
+        </div>
+    </div>
+</form>
+</body>
+
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/js/cache.js}"></script>
+<script type="text/javascript" th:src="@{/js/login.js}"></script>
+
+</html>

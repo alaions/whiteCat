@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loginHtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; Charset=utf-8" />
+		<meta http-equiv="Content-Language" content="zh-CN" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<title text="博客文章专栏'"></title>
+		<link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+		<!--Layui-->
+		<link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+		<!--font-awesome-->
+		<link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+		<!--全局样式表-->
+		<link th:href="@{/css/global.css}" rel="stylesheet" />
+		<link th:href="@{/css/animate.min.css}" rel="stylesheet" />
+		<!-- 本页样式表 -->
+		<link th:href="@{/css/detail.css}" rel="stylesheet" />
+		<link th:href="@{/css/blog.css}" rel="stylesheet" />
+		<link th:href="@{/css/me.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{/css/master.css}" />
+		<link rel="stylesheet" th:href="@{/css/gloable.css}" />
+		<link rel="stylesheet" th:href="@{/css/nprogress.css}" />
+		<link rel="stylesheet" th:href="@{/css/message.css}" />
+		<!-- jquery -->
+		<script th:src="@{/js/jquery.min.js}"></script>
+	</head>
+
+	<body>
+
+	<div th:insert="~{commons/commons.html :: top}"></div>
+
+		<div class="blog-body">
+
+			<div class="blog-container">
+				<div class="blog-main">
+					<blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow" style="visibility: visible;">
+						<a href="userIndex.html" title="网站首页">网站首页<span class="layui-box">&gt;</span></a>
+						<a href="article.html" title="文章专栏">文章专栏<span class="layui-box">&gt;</span></a>
+					</blockquote>
+					<div class="blog-main" style="width: 1775px; height: 2000px">
+						<div id="parentArticleList" class="blog-main-left animated slideInLeft">
+							<div class="blog-module shadow" style="box-shadow: 0 1px 8px #a6a6a6;">
+								<fieldset class="layui-elem-field layui-field-title" style="margin-bottom:0">
+									<legend>来说两句吧</legend>
+									<div class="layui-field-box">
+										<div class="layui-form blog-editor" > <!--th:action="@{/submitTopic}" action="get"-->
+											<textarea type="text" id="title" name="title" placeholder="请输入标题" required="required" style="width: 1150px; font-size: 20px"></textarea><br>
+											<div class="layui-input-inline" style="width: 200px">
+												<select name="topicTagId" id="topicTagId">
+													<option th:each="tag:${tagList}" name="topicTagId" th:value="${tag.id}" th:text="${tag.name}"></option>
+												</select>
+												<select name="topicType" id="topicType">
+													<option value="0">原创</option>
+													<option value="1">转载</option>
+												</select>
+											</div>
+											<div class="layui-form-item">
+												<textarea required="required" id="content" name="content" class="layui-textarea" placeholder="请输入内容" style="height: 400px; font-size: 16px"></textarea>
+											</div>
+												<div class="layui-form-item ">
+													<button class="layui-btn" onclick="submitTopic()">发布</button>
+												</div>
+											<button type="button" class="layui-btn layui-btn-danger" id="test7"><i class="layui-icon"></i>上传封面</button>
+										</div>
+									</div>
+								</fieldset>
+								</div>
+						</div>
+
+					</div>
+					<div class="clear "></div>
+				</div>
+			</div>
+		</div>
+	<!--页脚-->
+	<div th:insert="~{commons/commons.html :: down}"></div>
+		<div class="blog-mask animated layui-hide "></div>
+		<script th:src="@{/layui/layui.js}"></script>
+		<script th:src="@{/js/global.js}"></script>
+		<script th:src="@{/js/about.js}"></script>
+		<script th:src="@{/js/detail.js}"></script>
+		<script th:inline="javascript">
+			layui.use(['upload', 'element', 'layer'], function(){
+				var $ = layui.jquery
+						,upload = layui.upload
+						,element = layui.element
+						,layer = layui.layer;
+
+				//设定文件大小限制
+				upload.render({
+					elem: '#test7'
+					,url: '/chen/upload' //此处配置你自己的上传接口即可
+					,size: 6000 //限制文件大小，单位 KB
+					,done: function(res){
+						layer.msg(res.message);
+						console.log(res)
+					}
+				});
+			});
+
+			function submitTopic(){
+				if([[${session.loginUser}]] == null){
+					layer.msg("请先登录")
+				}else{
+					if ($("#content").val().length < 30){
+						layer.msg("内容不能少于30字！")
+					} else {
+						$.ajax({
+							type : "get",
+							url: "/chen/submitTopic",
+							data: {
+								"content":$("#content").val(),
+								"title":$("#title").val(),
+								"topicType":$("#topicType").val(),
+								"topicTagId":$("#topicTagId").val(),
+							},
+							success:function (data) {
+								/*layer.msg(data)*/
+								alert(data)
+							},
+							error:function (data){
+								layer.msg(data)
+							}
+						})
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

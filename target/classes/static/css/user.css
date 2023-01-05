@@ -1,0 +1,80 @@
+.link:hover {
+	cursor: pointer;
+	color: blue;
+}
+.link {
+	font-size: 12px;
+	color: blue
+}
+
+.pic {
+	position: relative;
+	width: 373px;
+	height: 373px;
+	background-color: #F2F2F5;
+}
+.pic p{
+	position: absolute;
+	top: 70px;
+	width: 100%;
+	margin-top: 10px;
+	font-size: 12px;
+	text-align: center;
+	color: #999;
+}
+.pic .upload-img {
+	position: absolute;
+	left: 50%;
+	top: 35px;
+	margin: 0 0 0 -56px;
+}
+.pic img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 168px;
+	height: 168px;
+	margin: -50px 0 0 -84px;
+	border-radius:100%;
+}
+.pic .layui-upload-file{
+	display: none;
+}
+
+/*我的消息*/
+.layui-elem-quote span, .layui-elem-quote a{
+	color: #4F99CF;
+}
+.mine-msg li {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 10px 0 5px;
+    line-height: 24px;
+    border-bottom: 1px dotted #E9E9E9;
+}
+
+.mine-msg li > p {
+    position: relative;
+    margin-top: 5px;
+    line-height: 26px;
+    text-align: right;
+}
+
+.mine-msg li > p span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #999;
+}
+
+.mine-msg li .fly-delete {
+    position: relative;
+    top: -3px;
+}
+
+.layui-btn-sm {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    font-size: 12px;
+}
