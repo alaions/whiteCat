@@ -31,6 +31,7 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 ![输入图片说明](ima/15FU820NVR40MUALKHS4%25JM.png)
 3.  配置数据库
 ![输入图片说明](ima/@@3RZLOBF_5%25J%7BQ%7BVD%25OX7E.png)
+4.导入在文件夹中的myblog.sql文件，
 
 
 
