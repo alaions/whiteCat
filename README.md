@@ -24,7 +24,7 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 
 
 文章详情页面
-
+![输入图片说明](%25U5)2%7B~R7$9BR%60JCFXTK0%7B5.png)
 
 评论
 
