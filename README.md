@@ -22,29 +22,12 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 首页
 ![输入图片说明](_3H$Q1_DJ%7DD91NBHHG@EZEA.png)
 
-
-文章详情页面
-![输入图片说明](%25U5)2%7B~R7$9BR%60JCFXTK0%7B5.png)
-
-评论
-
-
-
-
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
+1.  配置你的邮箱以及密码，如果你不需要邮箱发送验证码功能的话可忽略
+![输入图片说明](%5D8QG$D3_O4Q%251$EHD%7DG~I35.png)
+2.  配置头像以及封面存放地址
+![输入图片说明](15FU820NVR40MUALKHS4%25JM.png)
 3.  xxxx
 
 #### 参与贡献
