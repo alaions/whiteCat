@@ -11,7 +11,7 @@ spring:
         enabled: true   #开启页面表单的Rest功能
   datasource:
     username: root
-    password: 你的密码
+    password: qazchenxijie
     url: jdbc:mysql://localhost:3306/myblog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource # 自定义数据源
@@ -23,7 +23,7 @@ spring:
       max-request-size: 10MB
   mail:
     username: 1345305701@qq.com
-    password: 你的密码
+    password: hnikomyarhtkicha
     host: smtp.qq.com
     # qq需要配置ssl
     properties:
