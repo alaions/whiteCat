@@ -16,11 +16,11 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 
 
 登录/注册页面
-![输入图片说明](ima/19@FB%5D1D_K%5D_%7DQ7UUCCZ3N1.png)
+![输入图片说明](ima/login.png)
 
 
 首页
-
+![输入图片说明](ima/index.png)
 
 
 
