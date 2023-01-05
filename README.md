@@ -20,15 +20,14 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 ![登录/注册页面](https://foruda.gitee.com/images/1672927608603235204/73d9003f_11795877.png "19@FB]1D_K]_}Q7UUCCZ3N1.png")
 
 首页
-
 ![输入图片说明](_3H$Q1_DJ%7DD91NBHHG@EZEA.png)
+
 
 文章详情页面
 
-![输入图片说明](%25U5)2%7B~R7$9BR%60JCFXTK0%7B5.png)
 
 评论
-![输入图片说明](EERF%7D%5B5DR%5B%25@XL)ID@IYHKM.png)
+
 
 
 
