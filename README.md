@@ -25,7 +25,7 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 
 #### 使用说明
 
-需导入在文件夹中的myblog.sql文件，
+需导入在文件夹中的myblog.sql文件，本地访问为：http://localhost:8080/chen
 
 1.  配置你的邮箱以及密码，如果你不需要邮箱发送验证码功能的话可忽略
 ![输入图片说明](ima/%5D8QG$D3_O4Q%251$EHD%7DG~I35.png)
