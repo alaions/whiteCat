@@ -44,21 +44,26 @@
             <li class="layui-nav-item" style="transform:translate(150px)">
                 <a th:href="@{/write.html}"><i class="fa fa-info fa-fw" ></i>&nbsp;发布</a>
             </li>
-            <li class="layui-nav-item" style="transform:translate(150px)">
-            <div>
-                <a th:href="@{/login.html}" th:if="${session.loginUser == null}" style="position:relative; left:-20px;">
+            <!--<li class="layui-nav-item" style="transform:translate(180px)">
+            <div th:if="${session.loginUser == null}">
+                &lt;!&ndash;<a th:href="@{/login.html}" th:if="${session.loginUser == null}" style="position:relative; left:-20px;">
                     登录
+                </a>&ndash;&gt;
+                <a class="layui-nav-item" style="transform:translate(680px) translateY(-65px)">
+                    <a th:href="@{/login.html}" ><i class="fa fa-paper-plane-o fa-fw"></i>&nbsp;登录</a>
                 </a>
             </div>
-            </li>
+            </li>-->
             <li class="layui-nav-item" style="transform:translate(700px) translateY(-65px)">
-                <div class="hotusers-avator">
+                <div class="hotusers-avator" th:if="${session.loginUser != null}">
                     <!--头像-->
-                    <!--<a th:href="@{/login.html}" th:if="${session.loginUser == null}" style="position:relative; left:-20px;">
-                        登录
-                    </a>-->
-                    <a th:href="@{/toPersonal/topic}" th:if="${session.loginUser != null}">
+                    <a th:href="@{/toPersonal/topic}" >
                         <img th:src="@{/images/avatar/} + ${session.loginUser.avatar}" width="45" height="45">
+                    </a>
+                </div>
+                <div th:if="${session.loginUser == null}">
+                    <a class="layui-nav-item" style="transform:translate(680px) translateY(-65px)">
+                        <a th:href="@{/login.html}" ><i class="fa fa-paper-plane-o fa-fw"></i>&nbsp;登录</a>
                     </a>
                 </div>
             </li>
