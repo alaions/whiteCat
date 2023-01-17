@@ -53,4 +53,10 @@ public class NotificationController {
 
         return "success";
     }
+
+    @GetMapping("/reply/{id}")
+    public String replyChat(@PathVariable("id") Integer id, HttpSession session){
+
+        return "redirect:/chat/" + id;
+    }
 }

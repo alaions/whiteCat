@@ -30,7 +30,7 @@
                 <div class="flow-default" id="parentArticleList">
                     <!--私信-->
                     <div class="blog-module shadow animated fadeInRight fadeInUp">
-                        <a style="color: #0e8c8c">全部已读</a>
+                        <a th:href="@{/reply/} + ${user.id}" style="color: #0e8c8c">回复</a>
                         <ul class="message-list" th:each="detail:${detailChat}">
                             <a class="comment-parent" th:href="@{/toOtherPersonal/} + ${user.id}">
                                 <img th:src="@{/images/avatar/} + ${user.avatar}"/>
