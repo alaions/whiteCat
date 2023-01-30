@@ -33,43 +33,7 @@ import java.util.Random;
 class LayuiApplicationTests {
 
     @Autowired
-    JavaMailSenderImpl mailSender;
-
-    @Autowired
-    UserMapper userMapper;
-
-    @Autowired
-    TopicMapper topicMapper;
-
-    @Autowired
-    CutPage cutPage;
-
-    @Autowired
-    Select select;
-
-    @Autowired
-    CommentMapper commentMapper;
-
-    @Autowired
-    FansMapper fansMapper;
-
-    @Autowired
-    AppraiseMapper appraiseMapper;
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    NotificationService notificationService;
-
-    @Autowired
-    TopicService topicService;
-
-    @Autowired
-    CommentService commentService;
-
-    @Autowired
-    TimeUtil timeUtil;
+    IpMapper ipMapper;
 
     @Value("${index.static.properties.avatar}")
     private String avatarPath;
@@ -79,8 +43,7 @@ class LayuiApplicationTests {
 
     @Test
     public void test(){
-        Integer userChatCount = notificationService.getUserChatCount(1, 99);
-        System.out.println(userChatCount);
+        System.out.println(ipMapper.getAllIp());
 
 
     }

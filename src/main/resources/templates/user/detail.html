@@ -81,8 +81,9 @@
 											<div class="comment-parent">
 												<a name="remark-1"></a>
 												<img th:src="@{/images/avatar/} + ${comment.author.avatar}" />
+												<!--<a th:href="@{/toOtherPersonal/} + ${comment.author.id}"><img th:src="@{/images/avatar/} + ${comment.author.avatar}"></a>-->
 												<div class="info">
-													<span class="username" th:text="${comment.author.username}"></span>
+													<a th:href="@{/toOtherPersonal/} + ${comment.author.id}"><span class="username" th:text="${comment.author.username}"></span><a/>
 												</div>
 												<div class="comment-content" th:text="${comment.content}"></div>
 												<p class="info info-footer">
@@ -103,11 +104,11 @@
 											<!--子回复-->
 											<div class="comment-child" th:each="child:${comment.childCommentList}" th:if="${comment.childCommentList != null}">
 												<a name="reply-1"></a>
-												<img th:src="@{/images/avatar/} + ${child.author.avatar}" />
+												<img th:src="@{/images/avatar/} + ${child.author.avatar}">
 												<div class="info">
-													<span class="username" th:text="${child.author.username}"></span>
+													<a th:href="@{/toOtherPersonal/} + ${child.author.id}"><span class="username" th:text="${child.author.username}"></span><a/>
 													<span style="padding-right:0;margin-left:-5px;">回复</span>
-													<span class="username" th:text="${child.replyTo?.username}"></span>
+														<a th:href="@{/toOtherPersonal/} + ${child.replyTo?.id}"><span class="username" th:text="${child.replyTo?.username}"></span><a/>
 													<span th:text="${child.content}"></span>
 												</div>
 												<p class="info">

@@ -4,11 +4,13 @@ import com.chen.MyUtils.AppraiseUtil;
 import com.chen.MyUtils.CutPage;
 import com.chen.MyUtils.CutPageIntegration;
 import com.chen.Service.adminService.*;
+import com.chen.config.GetIp;
 import com.chen.config.MyStaticProperties;
 import com.chen.pojo.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,9 +44,14 @@ public class SimpleUserController {
     @Autowired
     private CutPage cutPage;
 
+    @Autowired
+    private IpService ipService;
+
     private HashMap<Integer, Integer> appraiseTopicMap;
 
     private HashMap<String, CutPage> cutPageMap;
+
+    private int visitCount;
 
     @PostConstruct
     public void init(){
@@ -56,8 +63,12 @@ public class SimpleUserController {
 
 
     @GetMapping("/userIndex.html")
-    public String userIndex(Model model, HttpSession session){
+    public String userIndex(Model model, HttpSession session, HttpServletRequest req){
+
+        ipService.addIp(GetIp.getIpAddress(req));
+        visitCount = ipService.getIpCount();
         System.out.println("进入首页");
+
         appraiseTopicMap = AppraiseUtil.appraise(session, 0, appraiseTopicMap, appraiseServise, "topic");
         topicList = topicService.getTopicList();
         model.addAttribute("topicList", this.cutPage.getLimitList(topicList, cutPageMap.get(session.getId())));
@@ -66,6 +77,7 @@ public class SimpleUserController {
         model.addAttribute("hotComment", userService.getHotCommentUser(MyStaticProperties.hotUserCount));//热评
         model.addAttribute("NearTimeTopic", topicService.getNearTimeTopic(MyStaticProperties.topicNearCount));//最近topic
         model.addAttribute("appraiseTopicMap", appraiseTopicMap);
+        model.addAttribute("visitCount", visitCount);
         return "user/userIndex";
     }
 
