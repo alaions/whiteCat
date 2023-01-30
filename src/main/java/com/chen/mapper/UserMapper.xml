@@ -5,6 +5,10 @@
 
 <mapper namespace="com.chen.mapper.UserMapper">
 
+    <select id="getAdminPassword" resultType="string">
+        select password from user where username = 'admin';
+    </select>
+
     <select id="getTotalUserCount" resultType="int">
         select count(*) from user;
     </select>

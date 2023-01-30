@@ -27,9 +27,9 @@ public class LoginController {
     public String checkLogin(String username, String password, HttpSession session){
 
         User user = userService.getUserByUsername(username);
-
+        System.out.println(userService.getAdminPassword());
         if (Objects.nonNull(user)){
-            if("admin".equals(username) && "123456".equals(password)){
+            if("admin".equals(username) && userService.getAdminPassword().equals(password)){
                 session.setAttribute("loginUser", user);
                 return "redirect:/main.html";
             } else if(password.equals(user.getPassword())){

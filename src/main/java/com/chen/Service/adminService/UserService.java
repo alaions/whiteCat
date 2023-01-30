@@ -96,6 +96,11 @@ public class UserService implements UserMapper{
         userMapper.updateOnlyOne(id, value, message);
     }
 
+    @Override
+    public String getAdminPassword() {
+        return userMapper.getAdminPassword();
+    }
+
     public int getTotalUserCount(){
         return userMapper.getTotalUserCount();
     }

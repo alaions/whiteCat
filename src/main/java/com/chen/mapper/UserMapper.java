@@ -19,6 +19,8 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
+    String getAdminPassword();
+
     int getTotalUserCount();
 
     User getUserByUsername(String username);

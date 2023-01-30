@@ -57,7 +57,7 @@ public class SimpleUserController {
 
     @GetMapping("/userIndex.html")
     public String userIndex(Model model, HttpSession session){
-
+        System.out.println("进入首页");
         appraiseTopicMap = AppraiseUtil.appraise(session, 0, appraiseTopicMap, appraiseServise, "topic");
         topicList = topicService.getTopicList();
         model.addAttribute("topicList", this.cutPage.getLimitList(topicList, cutPageMap.get(session.getId())));
