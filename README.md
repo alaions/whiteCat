@@ -22,7 +22,7 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 ![输入图片说明](ima/index.png)
 
 管理员页面
-![输入图片说明](ima/(8N5%25R~9AY4IW4019SA%60X@3.png)
+![输入图片说明](ima/admin.png)
 #### 使用说明
 
 需导入在文件夹中的myblog.sql文件，本地访问为：http://localhost:8080/chen
