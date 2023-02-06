@@ -5,8 +5,9 @@
 
 <mapper namespace="com.chen.mapper.IpMapper">
 
-    <insert id="addIp" parameterType="string">
-        insert into ip set ip = #{ip};
+    <insert id="addIp">
+        insert into ip (ip, time) values
+        (#{ip}, #{time})
     </insert>
 
     <select id="getAllIp" resultType="string">

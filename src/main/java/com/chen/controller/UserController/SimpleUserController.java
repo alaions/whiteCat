@@ -21,9 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class SimpleUserController {
@@ -65,9 +63,12 @@ public class SimpleUserController {
     @GetMapping("/userIndex.html")
     public String userIndex(Model model, HttpSession session, HttpServletRequest req){
 
-        ipService.addIp(GetIp.getIpAddress(req));
+
+        /*TimeZone time = TimeZone.getTimeZone("Etc/GMT-8");  //转换为中国时区
+        TimeZone.setDefault(time);*/
+
+        ipService.addIp(GetIp.getIpAddress(req), new Date());
         visitCount = ipService.getIpCount();
-        System.out.println("进入首页");
 
         appraiseTopicMap = AppraiseUtil.appraise(session, 0, appraiseTopicMap, appraiseServise, "topic");
         topicList = topicService.getTopicList();

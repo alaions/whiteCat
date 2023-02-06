@@ -4,6 +4,9 @@ import com.chen.mapper.IpMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -13,7 +16,7 @@ public class IpService implements IpMapper {
     private IpMapper ipMapper;
 
     @Override
-    public void addIp(String ip) {
+    public void addIp(String ip, Date time) {
 
         List allIp = ipMapper.getAllIp();
 
@@ -24,7 +27,9 @@ public class IpService implements IpMapper {
                 return;
             }
         }
-        ipMapper.addIp(ip);
+
+        ipMapper.addIp(ip, time);
+
     }
 
     public int getIpCount(){
