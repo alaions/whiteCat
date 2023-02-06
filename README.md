@@ -1,4 +1,4 @@
-# whiteCat 访问地址  http://47.115.223.210:8080/chen
+# whiteCat 访问地址  http://47.115.225.24:8080/chen  （http://47.115.223.210:8080/chen已过期）
 
 whiteCat博客/论坛介绍
 
@@ -11,7 +11,7 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 评论：评论的楼层叠加，评论的点赞以及删除。
 用户空间：设置功能：修改个人信息，头像的修改，绑定邮箱以及邮箱验证码的发送，他人以及自己的空间。
 消息系统：消息的通知，目前只实现了点赞信息提醒以及私信功能，其他的消息通知大同小异就没做了。
-管理员：完成了部分,管理员页面 用户名admin 密码123456
+管理员：完成了部分,管理员页面 用户名admin 密码：user表中admin的密码，(之前贴了密码出来被人删数据了/(ㄒoㄒ)/~~) 
 其他功能：关注列表以及粉丝列表，还有一些小功能不一一说明。
 
 
@@ -21,8 +21,8 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 首页
 ![输入图片说明](ima/index.png)
 
-
-
+管理员页面
+![输入图片说明](ima/admin.png)
 #### 使用说明
 
 需导入在文件夹中的myblog.sql文件，本地访问为：http://localhost:8080/chen
