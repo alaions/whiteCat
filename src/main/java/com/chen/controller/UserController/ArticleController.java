@@ -125,6 +125,10 @@ public class ArticleController {
         // 更新要展示的list
         topicList = topicService.getTopicListBySelectMessage(selectMessage);
 
+        for (Topic topic : topicList) {
+            System.out.println(topic.getUser().getUsername());
+        }
+
         session.setAttribute("selectMessage", selectMessage);
 
 

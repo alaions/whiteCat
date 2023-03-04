@@ -19,7 +19,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     private String topicPicturePath;
 
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/main.html").setViewName("admin/adindex");
+        /*registry.addViewController("/main.html").setViewName("admin/adindex");*/
         registry.addViewController("/login.html").setViewName("login");
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/register.html").setViewName("register");

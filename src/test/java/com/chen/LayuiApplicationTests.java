@@ -4,11 +4,9 @@ import com.chen.MyUtils.CheckUtil;
 import com.chen.MyUtils.CutPage;
 import com.chen.MyUtils.NotificationUtil;
 import com.chen.MyUtils.TimeUtil;
-import com.chen.Service.adminService.CommentService;
-import com.chen.Service.adminService.NotificationService;
-import com.chen.Service.adminService.TopicService;
-import com.chen.Service.adminService.UserService;
+import com.chen.Service.adminService.*;
 import com.chen.mapper.*;
+import com.chen.pojo.Comment;
 import com.chen.pojo.Select;
 import com.chen.pojo.Topic;
 import com.chen.pojo.User;
@@ -35,6 +33,9 @@ class LayuiApplicationTests {
     @Autowired
     IpMapper ipMapper;
 
+    @Autowired
+    TagService tagService;
+
     @Value("${index.static.properties.avatar}")
     private String avatarPath;
 
@@ -43,8 +44,8 @@ class LayuiApplicationTests {
 
     @Test
     public void test(){
-        System.out.println(ipMapper.getAllIp());
 
+        System.out.println(tagService.getTotalTagCount());
 
     }
 

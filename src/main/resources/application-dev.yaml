@@ -43,8 +43,8 @@ mybatis:
 
 # 日志
 #logging:
- # level:
- #   com.chen.mapper: debug  # 包名根据自己的包名来
+  #level:
+    #com.chen.mapper: debug  # 包名根据自己的包名来
 
 index:
   static:

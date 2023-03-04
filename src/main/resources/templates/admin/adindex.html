@@ -17,15 +17,15 @@
         <!-- 顶部开始 -->
         <div class="container">
             <div class="logo">
-                <a href="../index.html">whiteCat</a></div>
+                <a th:href="@{/main.html}">whiteCat</a></div>
             <div class="left_open">
                 <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
             </div>
             <ul class="layui-nav left fast-add" lay-filter="">
-                <li class="layui-nav-item">
+                <!--<li class="layui-nav-item">
                     <a href="javascript:">+新增</a>
                     <dl class="layui-nav-child">
-                        <!-- 二级菜单 -->
+                        &lt;!&ndash; 二级菜单 &ndash;&gt;
                         <dd>
                             <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
                                 <i class="iconfont">&#xe6a2;</i>弹出最大化</a></dd>
@@ -42,7 +42,7 @@
                             <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
                                 <i class="iconfont">&#xe6b8;</i>在tab打开刷新</a></dd>
                     </dl>
-                </li>
+                </li>-->
             </ul>
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
@@ -50,15 +50,11 @@
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         <dd>
-                            <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
-                        <dd>
-                            <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
-                        <dd>
                             <a href="./login.html">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
-                    <a href="/">前台首页</a></li>
+                    <a th:href="@{/userIndex.html}">前台首页</a></li>
             </ul>
         </div>
         <!-- 顶部结束 -->
@@ -86,19 +82,6 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:">
-                            <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
-                            <cite>管理员管理</cite>
-                            <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('管理员列表','admin-list.html')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>管理员列表</cite></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
                             <cite>文章管理</cite>
@@ -118,7 +101,7 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('评论列表','commentList')">
+                                <a onclick="xadmin.add_tab('评论列表','comment/commentList')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>评论列表</cite></a>
                             </li>
@@ -131,32 +114,14 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('分类列表','')">
+                                <a onclick="xadmin.add_tab('分类列表','tag/tagList')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>分类列表</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('添加分类','')">
+                                <a onclick="xadmin.add_tab('添加分类','tag/addTag')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>添加分类</cite></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
-                            <cite>友链管理</cite>
-                            <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a onclick="xadmin.add_tab('友链列表','')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>友链列表</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('添加友链','')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>添加友链</cite></a>
                             </li>
                         </ul>
                     </li>

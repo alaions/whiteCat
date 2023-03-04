@@ -15,6 +15,83 @@
     </if>
    </select>
 
+
+    <resultMap id="commentAddName" type="Comment">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="contentTime" column="content_time"></result>
+        <association property="author" javaType="User">
+            <result property="username" column="username"></result>
+        </association>
+        <association property="topic" javaType="Topic">
+            <result property="title" column="title"></result>
+        </association>
+    </resultMap>
+    <select id="getCommentList" resultMap="commentAddName">
+        select comment.*, user.username, topic.title from comment, user, topic where
+        comment.comment_user_id = user.id and comment.comment_topic_id = topic.id;
+    </select>
+
+    <select id="getCommentByWhichCount" resultType="int">
+        select count(*) from comment, user, topic
+        <where>
+            <if test="message == 'id'">
+                comment.id = #{selectMessage}
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+            <if test="message == 'comment'">
+                comment.content like concat('%',#{selectMessage},'%');
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+            <if test="message == 'username'">
+                user.username like concat('%',#{selectMessage},'%')
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+            <if test="message == 'title'">
+                topic.title like concat('%',#{selectMessage},'%')
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+        </where>
+    </select>
+
+    <select id="getCommentByWhich" resultMap="commentAddName">
+        select comment.*, user.username, topic.title from comment, user, topic
+        <where>
+            <if test="message == 'id'">
+                comment.id = #{selectMessage}
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+            <if test="message == 'comment'">
+                comment.content like concat('%',#{selectMessage},'%');
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+            <if test="message == 'username'">
+                user.username like concat('%',#{selectMessage},'%')
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+            <if test="message == 'title'">
+                topic.title like concat('%',#{selectMessage},'%')
+                and comment_topic_id = topic.id
+                and comment.comment_user_id = user.id;
+            </if>
+        </where>
+    </select>
+
+    <select id="getTotalCommentCount" resultType="int">
+        select count(*) from comment;
+    </select>
+
+    <delete id="deleteComment" parameterType="int">
+        delete from comment where id = #{id}
+    </delete>
+
     <select id="getUserById" parameterType="int" resultType="User">
         select * from comment where comment_user_id = #{id};
     </select>

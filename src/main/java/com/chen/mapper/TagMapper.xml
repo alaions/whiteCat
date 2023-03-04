@@ -16,4 +16,24 @@
     <select id="getTagListByFuzzyName" resultType="Tag">
         select * from tag where name like concat('%',#{message},'%');
     </select>
+
+    <select id="getTotalTagCount" resultType="int">
+        select count(*) from tag;
+    </select>
+
+    <update id="summitUpdate">
+        update tag set name = #{newName} where id = #{id};
+    </update>
+
+    <select id="getTagById" parameterType="int" resultType="Tag">
+        select * from tag where id = #{id}
+    </select>
+
+    <insert id="insertTag" parameterType="string">
+        insert into tag (name) values (#{newName});
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        delete from tag where id = #{id};
+    </delete>
 </mapper>

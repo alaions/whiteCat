@@ -79,7 +79,9 @@
     </select>
 
     <select id="getTopicListBySelectMessage" resultMap="topicAddUser" parameterType="string">
-        select topic.*, user.id as userId, user.username from topic, user where title like concat('%',#{selectMessage},'%') or content like concat('%',#{selectMessage},'%');
+        select topic.*, user.id as userId, user.username from topic, user
+        where (title like concat('%',#{selectMessage},'%') or content like concat('%',#{selectMessage},'%'))
+        and topic.topic_user_id = user.id;
     </select>
 
     <select id="getTopicListBySelectMessageCount" resultType="int" parameterType="string">

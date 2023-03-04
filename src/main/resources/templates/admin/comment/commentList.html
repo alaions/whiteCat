@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="x-nav">
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" th:href="@{/topic/topicList}" title="刷新">
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" th:href="@{/comment/commentList}" title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 </div>
 <div class="layui-fluid">
@@ -21,23 +21,18 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5" type="post" th:action="@{/topic/selectSubmit}">
-                        <div class="layui-inline layui-show-xs-block">
-                            <input th:value="${select.getStartTime()}" name="startTime" class="layui-input"  autocomplete="off" placeholder="开始日" id="start">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input th:value="${select.getEndTime()}" name="endTime" class="layui-input"  autocomplete="off" placeholder="截止日" id="end">
-                        </div>
+                    <form class="layui-form layui-col-space5" type="post" th:action="@{/comment/selectSubmit}">
                         <div class="layui-input-inline">
                             <div class="layui-input-inline">
                                 选择查找:
                             </div>
                             <div class="layui-input-inline" style="width: 100px">
                                 <!-- 选项数据动态添加 -->
-                                <select id="buttonId" name="message" th:value="${select.getMessage()}">
-                                    <option value="id" th:selected="${select.getMessage() eq 'id'}">id</option>
-                                    <option value="title" th:selected="${select.getMessage() eq 'title'}">标题</option>
-                                    <option value="topicUserId" th:selected="${select.getMessage() eq 'topicUserId'}">作者ID</option>
+                                <select id="buttonId" name="message">
+                                    <option value="id" th:selected="${select.getMessage() eq 'id'}">评论id</option>
+                                    <option value="commont" th:selected="${select.getMessage() eq 'comment'}">评论内容</option>
+                                    <option value="username" th:selected="${select.getMessage() eq 'username'}">评论者</option>
+                                    <option value="title" th:selected="${select.getMessage() eq 'title'}">文章标题</option>
                                 </select>
                             </div>
                         </div>
@@ -54,7 +49,7 @@
                         展示数量:
                     </div>
                     <div class="layui-inline layui-show-xs-block">
-                        <input th:value="${select.getShowCount()}" id="showCount" required="required" type="text" name="showCount"  placeholder="展示数目" autocomplete="off" class="layui-input" style="width: 100px">
+                        <input th:value="${select.getShowCount()}" required="required" id="showCount" type="text" name="showCount"  placeholder="展示数目" autocomplete="off" class="layui-input" style="width: 100px">
                     </div>
                     <div class="layui-inline layui-show-xs-block">
                         <button class="layui-btn" onclick="showCount()"><i class="layui-icon">&#xe615;</i></button>
@@ -65,32 +60,25 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>标题</th>
-                            <th>作者</th>
-                            <th>点赞数</th>
-                            <th>评论数</th>
-                            <th>浏览量</th>
-                            <th>创建时间</th>
+                            <th>评论</th>
+                            <th>评论者</th>
+                            <th>文章</th>
                             <th>状态</th>
                             <th>操作</th></tr>
                         </thead>
                         <tbody>
-                        <tr class="gradeX" th:each="topic:${topicList}">
-                            <td th:text="${topic.id}"></td>
-                            <td th:text="${topic.title}"></td>
-                            <td th:text="${topic.topicUserId}"></td>
-                            <td th:text="${topic.supportCount}"></td>
-                            <td th:text="${topic.commentCount}"></td>
-                            <td th:text="${topic.browseCount}"></td>
-                            <td th:text="${#dates.format(topic.topicTime, 'yyyy-MM-dd hh:mm')}"></td>
-
+                        <tr class="gradeX" th:each="comment:${commentList}">
+                            <td th:text="${comment.id}"></td>
+                            <td th:text="${comment.content}"></td>
+                            <td th:text="${comment.author.username}"></td>
+                            <td th:text="${comment.topic.title}"></td>
                             <td class="td-status">
                                 <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
                             <td class="td-manage">
                                 <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                                     <i class="layui-icon">&#xe601;</i>
                                 </a>
-                                <a title="删除" th:href="@{/topic/deleteTopic/} + ${topic.id}" onclick="deleteTopic()">
+                                <a title="删除" th:href="@{/comment/deleteComment/} + ${comment.id}" onclick="deleteComment()">
                                     <i class="layui-icon">&#xe640;</i>
                                 </a>
                             </td>
@@ -100,22 +88,20 @@
                 </div>
                 <div class="layui-card-body ">
                     <div class="page">
-                        <div class="page">
-                            <div>
-                                <a class="prev" th:href="@{/topic/lastPage}">&lt;&lt;</a>
-                                <a class="num" th:href="@{/topic/toWhichPage/} + ${cutPage.lastPage}" th:text="${cutPage.lastPage}" th:if="${cutPage.lastPage!=0}"></a>
-                                <span class="current" th:text="${cutPage.nowPage}"></span>
-                                <a class="num" th:href="@{/topic/toWhichPage/} + ${cutPage.nextPage}" th:text="${cutPage.nextPage}" th:if="${cutPage.nowPage != cutPage.getPageCount()}"></a>
-                                <a class="next" th:href="@{/topic/nextPage}">&gt;&gt;</a>
-                                <a class="num" th:text="共 + ${cutPage.pageCount} + 页"></a>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" id="pageCount"  placeholder="页数  " autocomplete="off" class="layui-input" style="width: 50px">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn" onclick="toWhichPage()"><i class="layui-icon">&#xe615;</i></button>
-                                </div>
-                                <a class="num" th:text="共 + ${cutPage.totalCount} + 条"></a>
+                        <div>
+                            <a class="prev" th:href="@{/comment/lastPage}">&lt;&lt;</a>
+                            <a class="num" th:href="@{/comment/toWhichPage/} + ${cutPage.lastPage}" th:text="${cutPage.lastPage}" th:if="${cutPage.lastPage!=0}"></a>
+                            <span class="current" th:text="${cutPage.nowPage}"></span>
+                            <a class="num" th:href="@{/comment/toWhichPage/} + ${cutPage.nextPage}" th:text="${cutPage.nextPage}" th:if="${cutPage.nowPage != cutPage.getPageCount()}"></a>
+                            <a class="next" th:href="@{/comment/nextPage}">&gt;&gt;</a>
+                            <a class="num" href="" th:text="共 + ${cutPage.pageCount} + 页"></a>
+                            <div class="layui-inline layui-show-xs-block">
+                                <input type="text" id="pageCount"  placeholder="页数" autocomplete="off" class="layui-input" style="width: 50px">
                             </div>
+                            <div class="layui-inline layui-show-xs-block">
+                                <button class="layui-btn" onclick="toWhichPage()"><i class="layui-icon">&#xe615;</i></button>
+                            </div>
+                            <a class="num" th:text="共 + ${cutPage.totalCount} + 条"></a>
                         </div>
                     </div>
                 </div>
@@ -125,16 +111,13 @@
 </div>
 </body>
 <script>
-    function addTopic(){
-        window.location.href="/chen/topic/memberAdd/"
-    }
 
     function toWhichPage() {
         let pageCount = $("#pageCount").val();
         if (pageCount === ""){
             alert("不能为空!")
         }else {
-            window.location.href="/chen/user/toWhichPage/" + $("#pageCount").val()
+            window.location.href="/chen/comment/toWhichPage/" + $("#pageCount").val()
         }
     }
 
@@ -143,13 +126,14 @@
         if (showCount === ""){
             alert("不能为空!")
         }else {
-            window.location.href="/chen/topic/updateShowCount/" + showCount;
+            window.location.href="/chen/comment/updateShowCount/" + showCount;
         }
     }
 
-    function deleteTopic(){
+    function deleteComment(){
         alert("删除成功！")
     }
+
 
     layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
