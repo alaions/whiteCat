@@ -69,7 +69,7 @@ public class ArticleController {
 
         model.addAttribute("topicList", cutPage.getLimitList(topicList, cutPageMap.get(session.getId())));
         model.addAttribute("cutPage", cutPageMap.get(session.getId()));
-        model.addAttribute("tagList", tagList);
+        model.addAttribute("tagList", tagService.getTagList());
         model.addAttribute("appraiseTopicMap", appraiseTopicMap);
 
         return "user/article";
