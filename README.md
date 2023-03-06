@@ -17,7 +17,7 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 
 
 登录/注册页面
-![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/login.png)
+![输入图片说明](ima/login.png)
 
 首页
 ![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/index.png)
