@@ -1,4 +1,4 @@
-# whiteCat 访问地址  http://47.115.225.24:8080/chen  （http://47.115.223.210:8080/chen已过期）
+# whiteCat 访问地址  http://47.115.225.24:8080/chen
 
 whiteCat博客/论坛介绍
 
@@ -16,10 +16,42 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 
 
 登录/注册页面
-![输入图片说明](ima/login.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/login.png)
 
 首页
-![输入图片说明](ima/index.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/index.png)
+
+文章详细页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/topic.png)
+
+评论页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/comment.png)
+
+个人主页 + 粉丝列表+ 关注列表 + 消息页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/personal.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/myFollow.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/myFans.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/notic.png)
+
+
+他人主页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/otherPersonal.png)
+
+
+文章分类页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/onlyTopic.png)
+
+发帖页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/commitTopic.png)
+
+用户搜索页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/selectUser.png)
+
+设置页
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/setting1.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/setting2.png)
+
+
 
 管理员页面
 ![输入图片说明](ima/admin.png)
