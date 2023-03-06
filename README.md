@@ -16,10 +16,10 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 
 
 登录/注册页面
-![输入图片说明](ima/K3BA2K%60%7BN95_HYE%7B(9ABBEM.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/%5DLM%7D$072UBJ8%5D)2M25%5BS9H6.png)
 
 首页
-![输入图片说明](ima/%5DLM%7D$072UBJ8%5D)2M25%5BS9H6.png)
+![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/%5DLM%7D$072UBJ8%5D)2M25%5BS9H6.png)
 
 管理员页面
 ![输入图片说明](ima/admin.png)
