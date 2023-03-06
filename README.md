@@ -33,6 +33,7 @@ springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.co
 ![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/myFans.png)
 ![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/notic.png)
 
+
 他人主页
 ![输入图片说明](https://gitee.com/alaions/white-cat/raw/master/ima/otherPersonal.png)
 
