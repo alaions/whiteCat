@@ -5,6 +5,14 @@
 
 <mapper namespace="com.chen.mapper.TagMapper">
 
+    <update id="tagCountPlus">
+        update tag set topic_count = topic_count + 1 where id = #{id};
+    </update>
+
+    <update id="tagCountReduce">
+        update tag set topic_count = topic_count - 1 where id = #{id};
+    </update>
+
     <select id="getTagNameById" parameterType="int" resultType="string">
         select tag.name from tag where id = #{id}
     </select>

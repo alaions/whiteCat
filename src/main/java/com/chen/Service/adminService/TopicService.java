@@ -41,6 +41,11 @@ public class TopicService implements TopicMapper{
         return topicMapper.getTopicByWhich(select);
     }
 
+    @Override
+    public List<Topic> getTopicAndUserByWhich(Select select) {
+        return topicMapper.getTopicAndUserByWhich(select);
+    }
+
     public int getTopicByWhichCount(Select select){
         return topicMapper.getTopicByWhichCount(select);
     }

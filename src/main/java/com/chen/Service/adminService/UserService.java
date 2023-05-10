@@ -97,6 +97,11 @@ public class UserService implements UserMapper{
     }
 
     @Override
+    public User get(String username) {
+        return userMapper.get(username);
+    }
+
+    @Override
     public String getAdminPassword() {
         return userMapper.getAdminPassword();
     }

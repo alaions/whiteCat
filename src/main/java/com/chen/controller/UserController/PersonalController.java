@@ -46,6 +46,11 @@ public class PersonalController {
     @Autowired
     private AppraiseServise appraiseServise;
 
+    @Autowired
+    private TagService tagService;
+
+    @Autowired CommentService commentService;
+
     private String message; //控制个人空间主要展示内容
 
     private List<Topic> topicList;
@@ -182,8 +187,17 @@ public class PersonalController {
         }
 
         topicList.remove(index.intValue());
-        topicService.deleteTopicById(topicId);
+
         userService.topicCountMinus(loginUser.getId());
+
+        //使用该标签的文章数量--
+        tagService.tagCountReduce(topicService.getTopicById(topicId).getTopicTagId());
+
+        //删除相关评论
+        commentService.deleteCommentListByTopicId(topicId);
+
+        topicService.deleteTopicById(topicId);//删除文章需要放到最后
+
         session.setAttribute("loginUser", userService.getUserById(loginUser.getId()));
 
         return "success";

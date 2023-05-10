@@ -17,6 +17,8 @@ public interface CommentMapper {
 
     List<Comment> getCommentList();
 
+    List<Comment> getAllCommentByTopicId(Integer id);
+
     Integer getCommentByWhichCount(Select select);
 
     List<Comment> getCommentByWhich(Select select);

@@ -15,6 +15,10 @@
     </if>
    </select>
 
+    <select id="getAllCommentByTopicId" resultType="Comment">
+        select * from comment where comment_topic_id = #{topicId}
+    </select>
+
 
     <resultMap id="commentAddName" type="Comment">
         <id property="id" column="id"></id>

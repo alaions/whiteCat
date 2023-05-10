@@ -45,6 +45,7 @@ public class RegisterController {
 
     private Map<String, String> codeMap = new HashMap<>();
 
+
     @PostConstruct
     public void init(){
         codeMap = new HashMap<>();

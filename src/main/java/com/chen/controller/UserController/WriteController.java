@@ -66,6 +66,8 @@ public class WriteController {
         topicService.insertTopic(topic);
 
         userService.topicCountPlus(topic.getTopicUserId()); //文章数量+1
+        tagService.tagCountPlus(topic.getTopicTagId());
+
         session.setAttribute("loginUser", userService.getUserById(loginUser.getId()));
 
         return "发布成功!";

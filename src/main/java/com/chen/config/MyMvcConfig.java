@@ -27,18 +27,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/code.html").setViewName("code");
     }
 
-    /*https://blog.csdn.net/weixin_44690195/article/details/108855892*/
+    /*增加资源索引*/
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // windows
-        /*registry.addResourceHandler("/images/avatar/**").
-                addResourceLocations(MyStaticProperties.avatar);
-        registry.addResourceHandler("/images/topicPicture/**").
-                addResourceLocations(MyStaticProperties.topicPicture);
-        registry.addResourceHandler("/images/other/**").
-                addResourceLocations(MyStaticProperties.otherPicture);*/
-
-        //  /images/** 映射到哪里去,前端里面的路由      file:/home/fileUpload/ 表示需要访问linux系统文件所在的文件夹路径名称
-        // linux的地址
         String avatar = "file:" + avatarPath;
         String topicPicture = "file:" + topicPicturePath;
         registry.addResourceHandler("/images/avatar/**").
@@ -56,7 +46,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**").excludePathPatterns("/css/**", "/font-awesome/**",
                 "/fonts/**", "/images/**", "/img/**", "/js/**", "/layui/**", "/lib/**",
                 "/", "/login", "/register", "/login.html", "/main.html", "/register.html",
-                "/userIndex.html", "/toUserIndex","/detail/**", "/submitComment", "/reply/**", "write.html",
+                "/userIndex.html", "/toUserIndex","/detail/**", "/submitComment", "/reply/**",
                 "/personal.html", "/index.html", "/toArticle", "/article.html", "/category/**",
                 "/article/selectSubmit", "/**/lastPage", "/**/nextPage", "/**/toWhichPage/**",
                 "/topic/supportOrCriticism/**", "/comment/supportOrCriticism/**", "/register/**",

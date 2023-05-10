@@ -28,6 +28,9 @@ public interface TagMapper {
 
     void deleteById(Integer id);
 
+    void tagCountPlus(@Param("id") Integer id);
+    void tagCountReduce(@Param("id") Integer id);
+
     void summitUpdate(@Param("id") Integer id, @Param("newName") String newName);
 
 }

@@ -10,6 +10,7 @@ import com.chen.pojo.Comment;
 import com.chen.pojo.Select;
 import com.chen.pojo.Topic;
 import com.chen.pojo.User;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,21 +32,26 @@ import java.util.Random;
 class LayuiApplicationTests {
 
     @Autowired
+    SqlSession session;
+
+    @Autowired
     IpMapper ipMapper;
 
     @Autowired
     TagService tagService;
 
-    @Value("${index.static.properties.avatar}")
-    private String avatarPath;
+    @Autowired
+    UserService userService;
 
+    @Autowired
+    TopicService topicService;
 
-    private String topicPicturePath;
 
     @Test
     public void test(){
 
-        System.out.println(tagService.getTotalTagCount());
+        Topic topicById = topicService.getTopicById(98);
+        System.out.println(topicById.getTopicTagId());
 
     }
 

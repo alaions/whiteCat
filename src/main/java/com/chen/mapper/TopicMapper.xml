@@ -31,6 +31,25 @@
         </if>
     </select>
 
+    <select id="getTopicAndUserByWhich" resultMap="topicAddUser">
+        select topic.*, user.* from topic, user
+        <where>
+            <if test="message == 'id'">
+                topic.id = #{selectMessage}
+            </if>
+            <if test="message == 'title'">
+                title like concat('%',#{selectMessage},'%')
+            </if>
+            <if test="message == 'topicUserId'">
+                topic_user_id = #{selectMessage}
+            </if>
+        </where>
+        <if test="startTime != null and startTime != '' and endTime != '' and endTime != null" >
+            and topic_time BETWEEN #{startTime} AND #{endTime};
+        </if>
+            and topic.topic_user_id = user.id;
+    </select>
+
     <select id="getTopicByWhichCount" resultType="int">
         select count(*) from topic
         <where>

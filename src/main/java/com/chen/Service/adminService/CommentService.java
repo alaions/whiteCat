@@ -26,6 +26,11 @@ public class CommentService implements CommentMapper {
     }
 
     @Override
+    public List<Comment> getAllCommentByTopicId(Integer id) {
+        return commentMapper.getAllCommentByTopicId(id);
+    }
+
+    @Override
     public Integer getCommentByWhichCount(Select select) {
         return commentMapper.getCommentByWhichCount(select);
     }
@@ -80,6 +85,16 @@ public class CommentService implements CommentMapper {
     @Override
     public void deleteComment(Integer id) {
         commentMapper.deleteComment(id);
+    }
+
+    public void deleteCommentListByTopicId(Integer topicId){
+
+        List<Comment> list = commentMapper.getAllCommentByTopicId(topicId);
+
+        for (Comment comment : list) {
+            commentMapper.deleteComment(comment.getId());
+        }
+
     }
 
 }

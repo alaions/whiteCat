@@ -50,6 +50,16 @@ public class TagService implements TagMapper{
     }
 
     @Override
+    public void tagCountPlus(Integer id) {
+        tagMapper.tagCountPlus(id);
+    }
+
+    @Override
+    public void tagCountReduce(Integer id) {
+        tagMapper.tagCountReduce(id);
+    }
+
+    @Override
     public void summitUpdate(Integer id, String newName) {
         tagMapper.summitUpdate(id, newName);
     }

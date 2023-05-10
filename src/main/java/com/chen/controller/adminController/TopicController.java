@@ -82,7 +82,8 @@ public class TopicController {
         // 设置搜索后的总页数
         cutPage.setTotalCount(topicService.getTopicByWhichCount(select));
         // 更新要展示的list
-        topicList = topicService.getTopicByWhich(select);
+        //topicList = topicService.getTopicByWhich(select);
+        topicList = topicService.getTopicAndUserByWhich(select);
 
         model.addAttribute("topicList", cutPage.getLimitList(topicList));
         model.addAttribute("select", select);

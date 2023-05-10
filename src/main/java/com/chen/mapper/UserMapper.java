@@ -19,6 +19,11 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
+    @org.apache.ibatis.annotations.Select({
+            "select * from user where username = #{username}"
+    })
+    User get(String username);
+
     String getAdminPassword();
 
     int getTotalUserCount();

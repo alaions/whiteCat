@@ -30,6 +30,8 @@ public interface TopicMapper {
 
     List<Topic> getTopicByWhich(Select select);
 
+    List<Topic> getTopicAndUserByWhich(Select select);
+
     int getTopicByWhichCount(Select select);
 
     void deleteTopicById(@Param("id") Integer id);
