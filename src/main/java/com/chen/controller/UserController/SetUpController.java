@@ -77,6 +77,14 @@ public class SetUpController {
     public String submitSetUp(User user, HttpSession session){
         User loginUser = (User) session.getAttribute("loginUser");
         user.setId(loginUser.getId());//放id进去，或者在表单隐藏域传入
+
+        if("on".equals(user.getSecretStr())){
+            user.setSecret(1);
+        }
+        else {
+            user.setSecret(0);
+        }
+
         userService.updateUserLimit(user);
         loginUser = userService.getUserById(loginUser.getId());
         session.setAttribute("loginUser", loginUser);

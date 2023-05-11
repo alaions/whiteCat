@@ -17,7 +17,7 @@
 <body class="loginBody">
 <form class="layui-form" method="get" th:action="@{/login}">
     <div class="login_face">
-        <img src="/images/login.jpg" height="60px" class="userAvatar">
+        <img th:src="@{/images/avatar/defaultAvatar.jpg}" height="60px" class="userAvatar">
     </div>
     <div>
         <div class="loginbox-title">登录</div>

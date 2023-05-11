@@ -24,4 +24,5 @@ public class User {
     private int sex;
     private int browseCount;
     private int secret;
+    private String secretStr;
 }

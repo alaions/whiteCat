@@ -62,10 +62,10 @@
                             <input type="checkbox" name="secret" value="1" lay-skin="switch" lay-text="ON|OFF" checked="">
                         </div>
                     </div>
-                    <div class="layui-form-item" th:if="${session.loginUser.secret == 0}">
+                    <div class="layui-form-item" >
                         <label class="layui-form-label">隐私保护</label>
                         <div class="layui-input-block">
-                            <input type="checkbox" name="secret" value="0" lay-skin="switch" lay-text="ON|OFF">
+                            <input type="checkbox" name="secretStr" lay-skin="switch" lay-text="ON|OFF">
                         </div>
                     </div>
                     <div class="layui-form-item" th:if="${session.loginUser.sex == 1}">
