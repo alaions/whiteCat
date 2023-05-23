@@ -1,4 +1,4 @@
-# whiteCat 访问地址  http://47.115.225.24:8080/chen
+# whiteCat 访问地址  http://134.175.55.216:8080/chen   （http://47.115.225.24:8080/chen过期弃用）
 
 whiteCat博客/论坛介绍
 
