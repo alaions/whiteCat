@@ -1,6 +1,7 @@
 package com.chen.controller.loginController;
 
 import com.chen.Service.adminService.UserService;
+import com.chen.config.MyStaticProperties;
 import com.chen.mapper.UserMapper;
 import com.chen.pojo.RegisterUser;
 import com.chen.pojo.User;
@@ -27,12 +28,22 @@ public class LoginController {
     public String checkLogin(String username, String password, HttpSession session){
 
         User user = userService.getUserByUsername(username);
-        System.out.println(userService.getAdminPassword());
-        if (Objects.nonNull(user)){
-            if("admin".equals(username) && userService.getAdminPassword().equals(password)){
+
+        /*先判断是否属于超级账号，后面在判断是否属于用户*/
+        if (username.equals(MyStaticProperties.superAdminName) && password.equals(MyStaticProperties.adminPassword)
+            || Objects.nonNull(user) && password.equals(user.getPassword())){
+            // level > 1 或 用户名属于超级账号进入管理员页面
+            if(username.equals(MyStaticProperties.superAdminName) || user.getRankLevel() > 1){
+                // 如果是超级账号那么user为空
+                if(Objects.isNull(user)){
+                    user = userService.getUserByUsername("admin");
+                    user.setUsername(MyStaticProperties.superAdminName);
+                    user.setPassword(MyStaticProperties.adminPassword);
+                }
                 session.setAttribute("loginUser", user);
                 return "redirect:/main.html";
-            } else if(password.equals(user.getPassword())){
+            }
+            else {
                 session.setAttribute("loginUser", user);
                 return "redirect:/toUserIndex";
             }
@@ -44,10 +55,10 @@ public class LoginController {
     /*registry.addViewController("/main.html").setViewName("admin/adindex");*/
     @GetMapping("/main.html")
     public String toAdmin(HttpSession session){
+
         User loginUser = (User) session.getAttribute("loginUser");
 
-        String username = loginUser.getUsername();
-        if ("admin".equals(username)){
+        if (loginUser.getUsername().equals(MyStaticProperties.superAdminName) || loginUser.getRankLevel() > 1){
             return "admin/adindex";
         }
         else {

@@ -119,7 +119,7 @@ public class TopicController {
     }
 
     @GetMapping("/deleteTopic/{id}")
-    public String memberList(@PathVariable("id") Integer id){
+    public String deleteTopic(@PathVariable("id") Integer id){
         topicService.deleteTopicById(id);
         return "redirect:/topic/topicList";
     }

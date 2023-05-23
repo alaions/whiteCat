@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 //@Data
 public class MyStaticProperties {
 
+    public  static int simpleAdminLevel;
+
+    public  static String superAdminName;
+
+    public  static String adminPassword;
+
     public static String avatar; //头像的路径
 
     public static String topicPicture; //帖子封面的路径
@@ -30,6 +36,30 @@ public class MyStaticProperties {
     public static int showFansCount; //空间里一页展示的粉丝数量
 
     public static int showMessageCount; //展示信息的数量
+
+    public static String getAdminPassword() {
+        return adminPassword;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        MyStaticProperties.adminPassword = adminPassword;
+    }
+
+    public static int getSimpleAdminLevel() {
+        return simpleAdminLevel;
+    }
+
+    public  void setSimpleAdminLevel(int simpleAdminLevel) {
+        MyStaticProperties.simpleAdminLevel = simpleAdminLevel;
+    }
+
+    public static String getSuperAdminName() {
+        return superAdminName;
+    }
+
+    public  void setSuperAdminName(String superAdminName) {
+        MyStaticProperties.superAdminName = superAdminName;
+    }
 
     public static int getShowMessageCount() {
         return showMessageCount;
