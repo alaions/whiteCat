@@ -37,6 +37,16 @@ public class MyStaticProperties {
 
     public static int showMessageCount; //展示信息的数量
 
+    public static String shield; //屏蔽评论
+
+    public static String getShield() {
+        return shield;
+    }
+
+    public void setShield(String shield) {
+        MyStaticProperties.shield = shield;
+    }
+
     public static String getAdminPassword() {
         return adminPassword;
     }

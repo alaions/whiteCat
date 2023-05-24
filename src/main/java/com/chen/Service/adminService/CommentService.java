@@ -87,6 +87,31 @@ public class CommentService implements CommentMapper {
         commentMapper.deleteComment(id);
     }
 
+    @Override
+    public int IfMainComment(Integer parentId) {
+        return commentMapper.IfMainComment(parentId);
+    }
+
+    @Override
+    public int getFloor(Integer commentId) {
+        return commentMapper.getFloor(commentId);
+    }
+
+    @Override
+    public void shield(String shieldWord, Integer commentId) {
+        commentMapper.shield(shieldWord, commentId);
+    }
+
+    @Override
+    public int ifExitsChild(Integer topicId, Integer commentId, Integer parentFloor) {
+        return commentMapper.ifExitsChild(topicId, commentId, parentFloor);
+    }
+
+    @Override
+    public int getTopicId(Integer commentId) {
+        return commentMapper.getTopicId(commentId);
+    }
+
     public void deleteCommentListByTopicId(Integer topicId){
 
         List<Comment> list = commentMapper.getAllCommentByTopicId(topicId);

@@ -83,7 +83,7 @@
 												<img th:src="@{/images/avatar/} + ${comment.author.avatar}" />
 												<!--<a th:href="@{/toOtherPersonal/} + ${comment.author.id}"><img th:src="@{/images/avatar/} + ${comment.author.avatar}"></a>-->
 												<div class="info">
-													<a th:href="@{/toOtherPersonal/} + ${comment.author.id}"><span class="username" th:text="${comment.author.username}"></span><a/>
+													<a th:href="@{/toOtherPersonal/} + ${comment.author.id}"><span class="username" th:text="${comment.author.username}"></span></a>
 												</div>
 												<div class="comment-content" th:text="${comment.content}"></div>
 												<p class="info info-footer">
@@ -97,7 +97,7 @@
 														<i class="fa fa-thumbs-o-up"   style="color: cornflowerblue" th:text=" ${comment.getSupportCount()}"></i>&nbsp;&nbsp;
 													</button>
 													<a th:href="@{/reply/} + ${comment.author.id} + '/' + ${topic.id} + '/' + ${comment.floor} + '/' + ${comment.author.username}" class="btn-reply" data-targetid="1" th:data-targetname="${comment.author.username}">回复</a>
-													<a style="border-style:none; background-color: white; color: #e61a8d" th:if="${comment.author.id == session?.loginUser?.id}">删除</a>
+													<a th:onclick="deleteComment([[${comment.id}]])" style="border-style:none; background-color: white; color: #e61a8d" th:if="${comment.author.id == session?.loginUser?.id}">删除</a>
 												</p>
 											</div>
 											<hr/>
@@ -122,6 +122,7 @@
 														<i class="fa fa-thumbs-o-up"   style="color: cornflowerblue" th:text=" ${child.getSupportCount()}"></i>&nbsp;&nbsp;
 													</button>
 													<a th:href="@{/reply/} + ${child.author.id} + '/' + ${topic.id} + '/' + ${child.floor} + '/' + ${child.author.username}" class="btn-reply2" data-targetid="2" th:data-targetname="${child.author.username}">回复</a>
+													<a th:onclick="deleteComment([[${child.id}]])" style="border-style:none; background-color: white; color: #e61a8d" th:if="${child.author.id == session?.loginUser?.id}">删除</a>
 													<input type="hidden" id="replyId" th:value="${child.author.id}">
 												</p>
 											</div>
@@ -184,6 +185,20 @@
 					}
 				})
 			}
+
+			function deleteComment(x){
+				$.ajax({
+					method: "get",
+					url: "/chen/deleteComment/" + x,
+					success:function (data) {
+						layer.msg(data)
+					},
+					error:function (data){
+						layer.msg(data)
+					}
+				})
+			}
+
 
 			function supportComment(commentId){
 				$.get({

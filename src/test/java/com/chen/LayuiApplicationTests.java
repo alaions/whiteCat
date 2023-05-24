@@ -46,12 +46,16 @@ class LayuiApplicationTests {
     @Autowired
     TopicService topicService;
 
+    @Autowired
+    CommentService commentService;
+
 
     @Test
     public void test(){
 
-        Topic topicById = topicService.getTopicById(98);
-        System.out.println(topicById.getTopicTagId());
+        int ifMain = commentService.IfMainComment(133);
+
+        System.out.println(ifMain);
 
     }
 

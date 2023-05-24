@@ -50,9 +50,10 @@ mybatis:
 index:
   static:
     properties:
+      shield: 该评论已被删除！
       simpleAdmin: 2
       superAdminName: superAdmin
-      adminPassword: qazchenxijie123
+      adminPassword: superAdmin
       myEmail: 1345305701@qq.com #我的邮箱
       everyPageTopicCount: 5 # 首页每页的topic数量
       topicRankCount: 10      # topic热度排行的数量

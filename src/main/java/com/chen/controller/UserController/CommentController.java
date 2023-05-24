@@ -3,6 +3,7 @@ package com.chen.controller.UserController;
 import com.chen.Service.adminService.CommentService;
 import com.chen.Service.adminService.TopicService;
 import com.chen.Service.adminService.UserService;
+import com.chen.config.MyStaticProperties;
 import com.chen.pojo.Comment;
 import com.chen.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +76,45 @@ public class CommentController {
         model.addAttribute("name", username);
         return "user/reply";
     }
+
+    @GetMapping("/deleteComment/{commentId}")
+    @ResponseBody
+    public String deleteMainComment(@PathVariable("commentId") Integer commentId){
+
+        int topicId = commentService.getTopicId(commentId);
+
+        //判断是否为主楼层
+        int ifMain = commentService.IfMainComment(commentId);
+
+        //是主楼层
+        if(ifMain == 1){
+
+            //得到该评论在该文章的楼层
+            int parentFloor = commentService.getFloor(commentId);
+            /*没子楼层回复： 直接删*/
+            int exitsChild = commentService.ifExitsChild(topicId, commentId, parentFloor);
+
+            if(exitsChild == 0){
+
+                commentService.deleteComment(commentId);
+
+            }
+            /*有子楼层回复   把内容屏蔽*/
+            else {
+
+                commentService.shield(MyStaticProperties.shield, commentId);
+
+            }
+        }
+        //是子楼层直接删
+        else {
+            commentService.deleteComment(commentId);
+        }
+
+        return "删除成功";
+
+
+    }
+
+
 }

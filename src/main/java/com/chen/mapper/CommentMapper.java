@@ -40,4 +40,16 @@ public interface CommentMapper {
     Integer getUserIdByCommentId(@Param("commentId") Integer commentId);
 
     void deleteComment(@Param("id") Integer id);
+
+    int IfMainComment(Integer parentId);
+
+    int getFloor(Integer commentId);
+
+    void shield(@Param("shieldWord") String shieldWord, @Param("commentId") Integer commentId);
+
+    int ifExitsChild(@Param("topicId") Integer topicId,
+                     @Param("commentId") Integer commentId,
+                     @Param("parentFloor") Integer parentFloor);
+
+    int getTopicId(Integer commentId);
 }
