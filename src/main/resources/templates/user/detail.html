@@ -45,7 +45,7 @@
 							<div class="article-detail shadow">
 								<div class="article-detail-title title" th:text="${topic.title}"></div>
 								<div class="article-detail-info">
-									<span th:text="${'时间:' + #dates.format(topic.topicTime, 'yyyy-MM-dd')}"></span>
+									<span th:text="${'时间:' + #dates.format(topic.topicTime, 'yyyy-MM-dd HH:mm')}"></span>
 									<span th:text="${'作者:' + topic.user.username}"></span>
 									<span th:text="${'浏览量:' + topic.browseCount}"></span>
 								</div>

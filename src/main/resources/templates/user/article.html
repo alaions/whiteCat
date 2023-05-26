@@ -51,7 +51,7 @@
 								</div>
 								<div class="clear"></div>
 								<div class="article-footer">
-									<span><i class="fa fa-clock-o" th:text="${#dates.format(topic.topicTime, 'yy-MM-dd hh-mm')}"></i>&nbsp;&nbsp;</span>
+									<span><i class="fa fa-clock-o" th:text="${#dates.format(topic.topicTime, 'yy-MM-dd HH-mm')}"></i>&nbsp;&nbsp;</span>
 									<a th:href="@{/toOtherPersonal/} + ${topic.user.id}" class="article-author" th:text="${topic.getUser().getUsername()}"><i class="fa fa-user"></i>&nbsp;&nbsp;</a>
 									<button th:onclick="support([[${topic.id}]])" class="article-viewinfo" style="border-style:none; background-color: white" th:if="${appraiseTopicMap[topic.id] == 1}">
 										<i class="fa fa-thumbs-o-up"  style="color: deeppink" th:text=" ${topic.getSupportCount()}"></i>&nbsp;&nbsp;
