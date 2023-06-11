@@ -5,6 +5,10 @@
 
 <mapper namespace="com.chen.mapper.TopicMapper">
 
+    <select id="getTotalTitle" resultType="string">
+        select topic.title from topic;
+    </select>
+
     <select id="getTotalTopicCount" resultType="int">
         select count(*) from topic;
     </select>

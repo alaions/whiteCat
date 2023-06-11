@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loginHtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; Charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title text="博客文章专栏'"></title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+    <!--Layui-->
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+    <!--font-awesome-->
+    <link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <!--全局样式表-->
+    <link th:href="@{/css/global.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet" />
+    <!-- 本页样式表 -->
+    <link th:href="@{/css/detail.css}" rel="stylesheet" />
+    <link th:href="@{/css/blog.css}" rel="stylesheet" />
+    <link th:href="@{/css/me.css}" rel="stylesheet" />
+
+    <link rel="stylesheet" th:href="@{/css/master.css}" />
+    <link rel="stylesheet" th:href="@{/css/gloable.css}" />
+    <link rel="stylesheet" th:href="@{/css/nprogress.css}" />
+    <link rel="stylesheet" th:href="@{/css/message.css}" />
+    <!-- jquery -->
+    <script th:src="@{/js/jquery.min.js}"></script>
+</head>
+
+<body>
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
+    <form method="get" th:action="@{/article/selectSubmit}" style="display: flex; justify-content: center; align-items: center;">
+        <a th:href="@{/toUserIndex}">返回首页</a>
+        <div class="layui-inline layui-show-xs-block">
+            <input th:value="${session.selectMessage}" id="msg" required="required" type="text" name="selectMessage" placeholder="请输入搜索关键词" autocomplete="off" class="layui-input">
+        </div>
+        <button type="submit" class="layui-btn" style="background-color: #3F3F3F"><i class="layui-icon">&#xe615;</i></button>
+    </form>
+    <div class="search-results"></div>
+</div>
+
+<script>
+    const searchInput = document.getElementById('msg');
+    const searchResults = document.querySelector('.search-results');
+
+    searchInput.addEventListener('input', function() {
+        if (this.value.trim() !== '') {
+            // 向服务器请求搜索结果
+            fetch(`/chen/searchTopic/${this.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 清空搜索结果
+                    searchResults.innerHTML = '';
+
+                    // 遍历搜索结果，将其添加至下拉菜单中
+                    for (const result of data) {
+                        const li = document.createElement('li');
+                        li.innerText = result;
+                        li.addEventListener('click', function() {
+                            // 选中搜索结果，将其赋值给搜索框
+                            searchInput.value = this.innerText;
+                            // 清空搜索结果
+                            searchResults.innerHTML = '';
+                        });
+                        searchResults.appendChild(li);
+                    }
+
+                    // 显示下拉菜单
+                    searchResults.style.display = 'block';
+                })
+                .catch(error => console.error(error));
+        } else {
+            // 清空搜索结果
+            searchResults.innerHTML = '';
+            // 隐藏下拉菜单
+            searchResults.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!searchResults.contains(event.target)) {
+            // 点击页面其他区域，隐藏下拉菜单
+            searchResults.style.display = 'none';
+        }
+    });
+</script>
+<!--页脚-->
+<div th:insert="~{commons/commons.html :: down}"></div>
+<div class="blog-mask animated layui-hide "></div>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/global.js}"></script>
+</body>
+</html>

@@ -102,6 +102,11 @@ public class UserService implements UserMapper{
     }
 
     @Override
+    public List<String> getTotalName() {
+        return userMapper.getTotalName();
+    }
+
+    @Override
     public String getAdminPassword() {
         return userMapper.getAdminPassword();
     }

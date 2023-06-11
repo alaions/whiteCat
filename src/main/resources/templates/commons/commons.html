@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/css/trie.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -13,8 +14,9 @@
         <!--<a th:href="@{/login}" class="blog-user">
             <i class="fa fa-qq"></i>
         </a>-->
-
+<!--        <a class="blog-logo" th:href="@{/search3.html}"><i class="fa fa-info fa-fw" ></i>查找文章</a>-->
         <a class="blog-logo" style="transform:translate(-120px)" th:href="@{/userIndex.html}">WhiteCat</a>
+
 
         <ul class="layui-nav" lay-filter="nav">
             <li class="layui-nav-item">
@@ -33,27 +35,25 @@
                 <a th:href="@{/contactMe}"><i class="fa fa-info fa-fw"></i>&nbsp;联系我</a>
             </li>
             <!--<span class="layui-nav-bar"></span></ul>-->
+
+            <li class="layui-nav-item">
+                <a th:href="@{/search.html}">
+                    <button type="submit" class="layui-btn" style="background-color: #3F3F3F"><i class="layui-icon">&#xe615;</i></button>
+                </a>
+            </li>
             <li class="layui-nav-item">
                 <form method="get" th:action="@{/article/selectSubmit}">
                     <div class="layui-inline layui-show-xs-block">
-                        <input th:value="${session.selectMessage}" required="required" type="text" name="selectMessage"  placeholder="请输入搜索关键词" autocomplete="off" class="layui-input">
+                        <input th:value="${session.selectMessage}" id="msg" required="required" type="text" name="selectMessage"
+                               placeholder="请输入搜索关键词" autocomplete="off" class="layui-input">
                     </div>
                     <button type="submit" class="layui-btn" style="background-color: #3F3F3F"><i class="layui-icon">&#xe615;</i></button>
                 </form>
             </li>
-            <li class="layui-nav-item" style="transform:translate(150px)">
+
+            <li class="layui-nav-item" style="transform:translate(600px) translateY(-65px)">
                 <a th:href="@{/write.html}"><i class="fa fa-info fa-fw" ></i>&nbsp;发布</a>
             </li>
-            <!--<li class="layui-nav-item" style="transform:translate(180px)">
-            <div th:if="${session.loginUser == null}">
-                &lt;!&ndash;<a th:href="@{/login.html}" th:if="${session.loginUser == null}" style="position:relative; left:-20px;">
-                    登录
-                </a>&ndash;&gt;
-                <a class="layui-nav-item" style="transform:translate(680px) translateY(-65px)">
-                    <a th:href="@{/login.html}" ><i class="fa fa-paper-plane-o fa-fw"></i>&nbsp;登录</a>
-                </a>
-            </div>
-            </li>-->
             <li class="layui-nav-item" style="transform:translate(700px) translateY(-65px)">
                 <div class="hotusers-avator" th:if="${session.loginUser != null}">
                     <!--头像-->

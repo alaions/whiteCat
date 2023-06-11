@@ -1,9 +1,6 @@
 package com.chen.controller.registerController;
 
-import com.chen.MyUtils.CheckUtil;
-import com.chen.MyUtils.RandomCode;
-import com.chen.MyUtils.SendEmail;
-import com.chen.MyUtils.TimeUtil;
+import com.chen.MyUtils.*;
 import com.chen.Service.RegisterService;
 import com.chen.Service.adminService.UserService;
 import com.chen.pojo.RegisterUser;
@@ -42,6 +39,9 @@ public class RegisterController {
 
     @Autowired
     private CheckUtil checkUtil;
+
+    @Autowired
+    private ControlTrie controlTrie;
 
     private Map<String, String> codeMap = new HashMap<>();
 
@@ -98,6 +98,9 @@ public class RegisterController {
             }
         }
         userService.insertUser(registerService.registerUserTurnToUser(registerUser));
+
+        /*字典树更新*/
+        controlTrie.getUserTrie().renew(registerUser.getUsername());
 
         return "success";
     }

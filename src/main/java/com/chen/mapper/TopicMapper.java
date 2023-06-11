@@ -12,6 +12,8 @@ import java.util.List;
 @Mapper
 public interface TopicMapper {
 
+    List<String> getTotalTitle();
+
     int getTotalTopicCount();
 
     List<Topic> getTopicList();

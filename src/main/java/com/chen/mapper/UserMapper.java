@@ -24,6 +24,11 @@ public interface UserMapper {
     })
     User get(String username);
 
+    @org.apache.ibatis.annotations.Select({
+            "select username from user"
+    })
+    List<String> getTotalName();
+
     String getAdminPassword();
 
     int getTotalUserCount();

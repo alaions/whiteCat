@@ -85,7 +85,7 @@
     </update>
 
     <select id="getChatUser" resultType="User" parameterType="int">
-        select user.* from notification as n, user where n.to_id = #{toId} and n.subject = 4 and n.from_id = user.id group by n.from_id;
+        select user.* from notification as n, user where n.to_id = #{toId} and n.subject = 4 and n.from_id = user.id order by n.from_id;
     </select>
 
     <select id="getUserChatCount" resultType="int" parameterType="int">

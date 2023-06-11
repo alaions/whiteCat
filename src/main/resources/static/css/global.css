@@ -248,6 +248,21 @@ body {
         display: inline-block;
         z-index: 10;
     }
+    .blog-nav .blog-logoo {
+        position: absolute;
+        top: 0px;
+        left: 25%;
+        width: 50%;
+        text-align: center;
+        margin: 0 auto;
+        line-height: 30px;
+        font-size: 16px;
+        color: whitesmoke;
+        font-weight: 50;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        display: inline-block;
+        z-index: 10;
+    }
 
     .blog-nav .blog-navicon {
         position: absolute;

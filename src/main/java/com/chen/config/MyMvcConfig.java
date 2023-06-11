@@ -25,6 +25,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/register.html").setViewName("register");
         registry.addViewController("/index.html").setViewName("redirect:toUserIndex");
         registry.addViewController("/code.html").setViewName("code");
+        registry.addViewController("/search.html").setViewName("user/search");
     }
 
     /*增加资源索引*/
@@ -51,6 +52,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 "/article/selectSubmit", "/**/lastPage", "/**/nextPage", "/**/toWhichPage/**",
                 "/topic/supportOrCriticism/**", "/comment/supportOrCriticism/**", "/register/**",
                 "/toUserPage", "/user.html", "/searchName", "/otherPersonal.html", "/toOtherPersonal/**",
-                "/searchTag", "/submitComment/**", "/toOtherPersonalPrivate/**", "/code.html");
+                "/searchTag", "/submitComment/**", "/toOtherPersonalPrivate/**", "/code.html",
+                "/search**/**", "/search.html");
     }
 }

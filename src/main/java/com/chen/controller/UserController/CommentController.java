@@ -1,9 +1,11 @@
 package com.chen.controller.UserController;
 
+import com.chen.MyUtils.ControlTrie;
 import com.chen.Service.adminService.CommentService;
 import com.chen.Service.adminService.TopicService;
 import com.chen.Service.adminService.UserService;
 import com.chen.config.MyStaticProperties;
+import com.chen.config.Trie;
 import com.chen.pojo.Comment;
 import com.chen.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class CommentController {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private ControlTrie controlTrie;
+
     @GetMapping("/submitComment/{topicId}")
     @ResponseBody
     public String submitComment(@PathVariable("topicId") Integer topicId ,Comment comment, HttpSession session){
@@ -42,6 +47,12 @@ public class CommentController {
         if(StringUtils.isEmpty(comment.getContent())){
             return "评论不能为空！";
         }
+
+        boolean ifBad = controlTrie.getSensitiveTrie().searchWord(comment.getContent());
+        if (ifBad){
+            return "此评论包含敏感词！";
+        }
+
         comment.setCommentUserId(loginUser.getId());
         comment.setCommentTime(new Date());
         comment.setFloor(commentService.getMaxParentCommentFloor(comment.getCommentTopicId()) + 1);
@@ -59,9 +70,7 @@ public class CommentController {
         comment.setCommentTime(new Date());
         comment.setChildFloor(commentService.getMaxChildCommentFloor(comment.getCommentTopicId(), comment.getFloor()) + 1);
         commentService.insertComment(comment);
-        System.out.println("=============================================");
         userService.commentCountPlus(loginUser.getId());
-        System.out.println("=============================================");
         return "redirect:detail/" + comment.getCommentTopicId();
     }
 

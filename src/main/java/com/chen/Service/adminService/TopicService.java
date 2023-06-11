@@ -20,6 +20,11 @@ public class TopicService implements TopicMapper{
     @Autowired
     private TagMapper tagMapper;
 
+    @Override
+    public List<String> getTotalTitle() {
+        return topicMapper.getTotalTitle();
+    }
+
     public int getTotalTopicCount(){
         return topicMapper.getTotalTopicCount();
     }

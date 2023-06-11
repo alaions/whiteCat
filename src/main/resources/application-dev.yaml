@@ -54,15 +54,15 @@ index:
       simpleAdmin: 2
       superAdminName: superAdmin
       adminPassword: superAdmin
-      myEmail: 1345305701@qq.com #我的邮箱
+      myEmail: whitecat117@163.com #我的邮箱
       everyPageTopicCount: 5 # 首页每页的topic数量
       topicRankCount: 10      # topic热度排行的数量
       topicNearCount: 10      # topic最新发布榜的数量
       hotUserCount: 5        # 热评用户榜的数量
       showFansCount: 5     #一页展示的fans数量
       showMessageCount: 5  #展示信息的数量
-      avatar: D:/github/layui/src/main/resources/static/images/avatar/  # 头像路径
-      topicPicture: D:/github/layui/src/main/resources/static/images/topicPicture/ #帖子封面路径
+      avatar: D:/environment/git/true/white-cat-true/src/main/resources/static/images/avatar/  # 头像路径
+      topicPicture: D:/environment/git/true/white-cat-true/src/main/resources/static/images/topicPicture/ #帖子封面路径
       otherPicture:  #其他图片路径
       tagCount: 10
 

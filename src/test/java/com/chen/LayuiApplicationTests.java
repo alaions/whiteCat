@@ -1,10 +1,8 @@
 package com.chen;
 
-import com.chen.MyUtils.CheckUtil;
-import com.chen.MyUtils.CutPage;
-import com.chen.MyUtils.NotificationUtil;
-import com.chen.MyUtils.TimeUtil;
+import com.chen.MyUtils.*;
 import com.chen.Service.adminService.*;
+import com.chen.config.Trie;
 import com.chen.mapper.*;
 import com.chen.pojo.Comment;
 import com.chen.pojo.Select;
@@ -18,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.util.StringUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -49,13 +48,25 @@ class LayuiApplicationTests {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    ControlTrie controlTrie;
+
 
     @Test
     public void test(){
+        for (String word : controlTrie.getSensitiveTrie().getList()) {
+            if (StringUtils.hasText(word)){
+                controlTrie.getSensitiveTrie().insert(word);
+            }
+        }
+        String comment = "哈台湾哈";
+        boolean ifBad = controlTrie.getSensitiveTrie().searchWord(comment);
+        if (ifBad){
+            System.out.println("此评论包含敏感词！");
+        }else {
+            System.out.println("无");
+        }
 
-        int ifMain = commentService.IfMainComment(133);
-
-        System.out.println(ifMain);
 
     }
 

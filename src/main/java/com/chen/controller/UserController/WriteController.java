@@ -1,4 +1,5 @@
 package com.chen.controller.UserController;
+import com.chen.MyUtils.ControlTrie;
 import com.chen.Service.adminService.TagService;
 import com.chen.Service.adminService.TopicService;
 import com.chen.Service.adminService.UserService;
@@ -37,6 +38,9 @@ public class WriteController {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private ControlTrie controlTrie;
+
 
     private HashMap<String, String> pictureMap; // 存每个用户上传的封面
 
@@ -57,6 +61,7 @@ public class WriteController {
     public String submitTopic(Topic topic, HttpSession session){
         User loginUser = (User)session.getAttribute("loginUser");
         topic.setTopicTime(new Date());
+        System.out.println(topic.getTopicTime());
         topic.setTopicUserId(loginUser.getId());
         if (StringUtils.isEmpty(pictureMap.get(session.getId()))){
             return "封面不能为空！";
@@ -69,6 +74,9 @@ public class WriteController {
         tagService.tagCountPlus(topic.getTopicTagId());
 
         session.setAttribute("loginUser", userService.getUserById(loginUser.getId()));
+
+        /*字典树更新*/
+        controlTrie.getTopicTrie().renew(topic.getTitle());
 
         return "发布成功!";
     }
