@@ -1,11 +1,11 @@
 package com.chen.controller.UserController;
 
+import com.chen.pojo.ResultJson;
 import com.chen.MyUtils.ControlTrie;
 import com.chen.Service.adminService.CommentService;
 import com.chen.Service.adminService.TopicService;
 import com.chen.Service.adminService.UserService;
 import com.chen.config.MyStaticProperties;
-import com.chen.config.Trie;
 import com.chen.pojo.Comment;
 import com.chen.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -64,14 +63,20 @@ public class CommentController {
     }
 
     @GetMapping("/submitReply")
-    public String submitReply(Comment comment, HttpSession session){
+    @ResponseBody
+    public ResultJson submitReply(Comment comment, HttpSession session){
+        boolean ifBad = controlTrie.getSensitiveTrie().searchWord(comment.getContent());
+        if (ifBad){
+            return new ResultJson("403", "此评论包含敏感词！");
+        }
         User loginUser = (User)session.getAttribute("loginUser");
         comment.setCommentUserId(loginUser.getId());
         comment.setCommentTime(new Date());
         comment.setChildFloor(commentService.getMaxChildCommentFloor(comment.getCommentTopicId(), comment.getFloor()) + 1);
         commentService.insertComment(comment);
         userService.commentCountPlus(loginUser.getId());
-        return "redirect:detail/" + comment.getCommentTopicId();
+       // return "redirect:detail/" + comment.getCommentTopicId();
+        return new ResultJson("200", "回复成功！");
     }
 
     @GetMapping("/reply/{reply}/{CommentTopicId}/{floor}/{username}")
