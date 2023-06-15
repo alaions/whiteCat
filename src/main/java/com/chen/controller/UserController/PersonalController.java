@@ -1,9 +1,6 @@
 package com.chen.controller.UserController;
 
-import com.chen.MyUtils.AppraiseUtil;
-import com.chen.MyUtils.CutPage;
-import com.chen.MyUtils.CutPageIntegration;
-import com.chen.MyUtils.UnreadUtil;
+import com.chen.MyUtils.*;
 import com.chen.Service.adminService.*;
 import com.chen.config.MyStaticProperties;
 import com.chen.pojo.Fans;
@@ -49,7 +46,11 @@ public class PersonalController {
     @Autowired
     private TagService tagService;
 
-    @Autowired CommentService commentService;
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private ControlTrie controlTrie;
 
     private String message; //控制个人空间主要展示内容
 
@@ -189,6 +190,9 @@ public class PersonalController {
         topicList.remove(index.intValue());
 
         userService.topicCountMinus(loginUser.getId());
+
+        // 更新字典树
+        controlTrie.getTopicTrie().delete(topicService.getTopicById(topicId).getTitle());
 
         //使用该标签的文章数量--
         tagService.tagCountReduce(topicService.getTopicById(topicId).getTopicTagId());
