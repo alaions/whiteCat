@@ -3,6 +3,7 @@ package com.chen.controller.adminController;
 import com.chen.MyUtils.CheckUtil;
 import com.chen.MyUtils.CutPage;
 import com.chen.Service.adminService.UserService;
+import com.chen.mapper.UserMapper;
 import com.chen.pojo.Select;
 import com.chen.pojo.User;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -28,6 +30,9 @@ public class UserController {
 
     @Autowired
     private Select select;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Setter
     @Getter
@@ -130,6 +135,18 @@ public class UserController {
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Integer id){
         userService.deleteUser(id);
+        return "redirect:/user/memberList";
+    }
+
+    @GetMapping("/updateBan/{id}")
+    public String updateBan(@PathVariable("id") Integer id){
+        User user = userService.getUserById(id);
+        int ban = user.getBan();
+        if (ban == 0){
+            userMapper.banUser(user);
+        } else {
+            userMapper.NonBanUser(user);
+        }
         return "redirect:/user/memberList";
     }
 

@@ -39,6 +39,16 @@ public class MyStaticProperties {
 
     public static String shield; //屏蔽评论
 
+    public static String banCount;
+
+    public static String getBanCount() {
+        return banCount;
+    }
+
+    public void setBanCount(String banCount) {
+        MyStaticProperties.banCount = banCount;
+    }
+
     public static String getShield() {
         return shield;
     }

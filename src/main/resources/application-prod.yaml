@@ -11,7 +11,7 @@ spring:
         enabled: true   #开启页面表单的Rest功能
   datasource:
     username: root
-    password: qazchenxijie
+    password:
     url: jdbc:mysql://localhost:3306/myblog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource # 自定义数据源
@@ -49,8 +49,8 @@ index:
   static:
     properties:
       simpleAdmin: 2
-      superAdminName: superAdmin
-      adminPassword: qazchenxijie123
+      superAdminName:
+      adminPassword:
       myEmail: whitecat117@163.com #我的邮箱
       everyPageTopicCount: 5 # 首页每页的topic数量
       topicRankCount: 10      # topic热度排行的数量
@@ -62,3 +62,4 @@ index:
       topicPicture: /www/wwwroot/images/topicPicture/ #帖子封面路径
       otherPicture: /www/wwwroot/images/other/ #其他图片路径
       tagCount: 10
+      banCount: 5

@@ -25,7 +25,7 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String checkLogin(String username, String password, HttpSession session){
+    public String checkLogin(String username, String password, HttpSession session, Model model){
 
         User user = userService.getUserByUsername(username);
 
@@ -44,6 +44,10 @@ public class LoginController {
                 return "redirect:/main.html";
             }
             else {
+                if (user.getBan() == 1){
+                    model.addAttribute("msg", "此账号已被封禁！");
+                    return "login";
+                }
                 session.setAttribute("loginUser", user);
                 return "redirect:/toUserIndex";
             }

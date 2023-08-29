@@ -11,8 +11,8 @@ spring:
         enabled: true   #开启页面表单的Rest功能
   datasource:
     username: root
-    password: qazchenxijie
-    url: jdbc:mysql://localhost:3306/bendi?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    password: 123456
+    url: jdbc:mysql://localhost:3306/myblog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource # 自定义数据源
     hikari:
@@ -52,8 +52,8 @@ index:
     properties:
       shield: 该评论已被删除！
       simpleAdmin: 2
-      superAdminName: superAdmin
-      adminPassword: superAdmin
+      superAdminName:
+      adminPassword:
       myEmail: whitecat117@163.com #我的邮箱
       everyPageTopicCount: 5 # 首页每页的topic数量
       topicRankCount: 10      # topic热度排行的数量
@@ -65,5 +65,6 @@ index:
       topicPicture: D:/environment/git/true/white-cat-true/src/main/resources/static/images/topicPicture/ #帖子封面路径
       otherPicture:  #其他图片路径
       tagCount: 10
+      banCount: 5
 
 

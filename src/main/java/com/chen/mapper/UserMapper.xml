@@ -76,6 +76,18 @@
         delete from user where id = #{id};
     </delete>
 
+    <select id="updateUserBadCount" parameterType="User">
+        update user set bad_count = bad_count + 1 where id = #{id};
+    </select>
+
+    <update id="banUser" parameterType="User">
+        update user set ban = 1 where id = #{id};
+    </update>
+
+    <update id="NonBanUser" parameterType="User">
+        update user set ban = 0 where id = #{id};
+    </update>
+
     <update id="updateUserById">
         update user set email=#{email}, username=#{username},
         password=#{password}, sex=#{sex} where id = #{id};

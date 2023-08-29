@@ -25,6 +25,7 @@ public class AdminInterceptorAspect {
             + "|| execution(* com.chen.controller.adminController.UserController.deleteUser(..))"
             + "|| execution(* com.chen.controller.adminController.UserController.submitUpdate(..))"
             + "|| execution(* com.chen.controller.adminController.UserController.submitAdd(..))"
+            + "|| execution(* com.chen.controller.adminController.UserController.updateBan(..))"
 
             + "|| execution(* com.chen.controller.adminController.AdminTagController.deleteTag(..))"
             + "|| execution(* com.chen.controller.adminController.AdminTagController.submitUpdate(..))"

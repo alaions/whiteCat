@@ -16,14 +16,14 @@ public class test {
     @Autowired
     ControlTrie controlTrie;
 
-    @GetMapping("/commons")
+    @GetMapping("/mac")
     public String test(){
-        return "commons/commons";
+        return "mac";
     }
 
-    @GetMapping("trie")
+    @GetMapping("test")
     public String trie(){
-        return "trie";
+        return "test";
     }
 
 

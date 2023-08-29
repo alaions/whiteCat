@@ -10,8 +10,5 @@
         <module name="layui" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="layui" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

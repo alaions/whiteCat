@@ -186,22 +186,16 @@ public class PersonalController {
         if (Objects.isNull(loginUser)){
             return "error";
         }
-
         topicList.remove(index.intValue());
-
         userService.topicCountMinus(loginUser.getId());
-
         // 更新字典树
         controlTrie.getTopicTrie().delete(topicService.getTopicById(topicId).getTitle());
-
         //使用该标签的文章数量--
         tagService.tagCountReduce(topicService.getTopicById(topicId).getTopicTagId());
-
         //删除相关评论
         commentService.deleteCommentListByTopicId(topicId);
-
-        topicService.deleteTopicById(topicId);//删除文章需要放到最后
-
+        //删除文章需要放到最后
+        topicService.deleteTopicById(topicId);
         session.setAttribute("loginUser", userService.getUserById(loginUser.getId()));
 
         return "success";

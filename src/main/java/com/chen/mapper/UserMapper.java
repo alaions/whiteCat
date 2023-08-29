@@ -45,6 +45,12 @@ public interface UserMapper {
 
     void deleteUserById(@Param("id") Integer id);
 
+    void updateUserBadCount(User user);
+
+    void banUser(User user);
+
+    void NonBanUser(User user);
+
     void updateUserById(User user);
 
     void insertUser(User user);

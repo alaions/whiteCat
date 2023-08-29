@@ -129,5 +129,20 @@ public class UserService implements UserMapper{
 
     }
 
+    @Override
+    public void updateUserBadCount(User user) {
+
+    }
+
+    @Override
+    public void banUser(User user) {
+
+    }
+
+    @Override
+    public void NonBanUser(User user) {
+
+    }
+
 
 }
