@@ -4,7 +4,7 @@ whiteCat博客/论坛介绍
 
 springboot+mybatis+thymeleaf+layui实现，前端页面参考了https://gitee.com/NarraT0r/layui_Blog
 
-这是我的一个web的课程设计的项目，仿着csdn做的一个多用户分享平台，有需要的也可以拿去交作业。
+这是我的一个web的课程设计的项目
 实现了基本功能：
 
 文章：发文章，删文章，文章的标签，文章的点赞，评论，以及点赞数，评论数，浏览量的统计，文章的搜索，以及文章的封面设置1. 这里是列表文本。
